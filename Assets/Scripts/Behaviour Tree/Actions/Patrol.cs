@@ -21,8 +21,6 @@ public class Patrol : Node
 
     public override NODE_STATE Evaluate()
     {
-        Debug.Log("Evaluating");
-
         if (waiting)
         {
             waitCounter += Time.deltaTime;
@@ -30,24 +28,24 @@ public class Patrol : Node
             {
                 waiting = false;
             }
+        }
+        else
+        {
+            Transform wp = wayPoints[currentWaypointIndex];
+
+            if (Vector3.Distance(transform.position, wp.position) < 0.01f)
+            {
+                transform.position = wp.position;
+                waitCounter = 0f;
+                waiting = true;
+
+                currentWaypointIndex = (currentWaypointIndex + 1) % wayPoints.Length;
+            }
             else
             {
-                Transform wp = wayPoints[currentWaypointIndex];
-
-                if (Vector3.Distance(transform.position, wp.position) < 0.0f)
-                {
-                    transform.position = wp.position;
-                    waitCounter = 0f;
-                    waiting = true;
-
-                    currentWaypointIndex = (currentWaypointIndex + 1) % wayPoints.Length;
-                }
-                else
-                {
-                    transform.position = Vector3.MoveTowards(transform.position, wp.position, PersonBT.speed * Time.deltaTime);
-                    transform.LookAt(wp.position);
-                }
-            }   
+                transform.position = Vector3.MoveTowards(transform.position, wp.position, PersonBT.speed * Time.deltaTime);
+                transform.LookAt(wp.position);
+            }
         }
 
         state = NODE_STATE.RUNNING;

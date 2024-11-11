@@ -1,4 +1,3 @@
-using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -11,12 +10,12 @@ namespace BehaviourTree
         FAILURE
     }
 
-    public class Node : MonoBehaviour
+    public class Node
     {
         protected NODE_STATE state;
+
         public Node parent;
         protected List<Node> children = new List<Node>();
-
         private Dictionary<string, object> data = new Dictionary<string, object>();
 
         public Node()
@@ -44,7 +43,6 @@ namespace BehaviourTree
         {
             data[key] = value;
         }
-
         public object GetData(string key)
         {
             //try to get the value from the current nodes data
@@ -78,7 +76,7 @@ namespace BehaviourTree
             }
             else
             {
-                if(parent != null)
+                if (parent != null)
                 {
                     return parent.RemoveData(key);
                 }

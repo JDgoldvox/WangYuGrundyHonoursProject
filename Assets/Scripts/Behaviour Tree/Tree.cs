@@ -10,10 +10,7 @@ namespace BehaviourTree
 
         protected void Start()
         {
-            Debug.Log("Creating Tree");
             root = InitTree();
-
-            Debug.Log("note added... ");
 
             if(root == null)
             {
