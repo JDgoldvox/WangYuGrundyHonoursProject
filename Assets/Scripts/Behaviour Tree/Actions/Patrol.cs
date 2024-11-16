@@ -6,7 +6,8 @@ public class Patrol : Node
 {
     private Transform transform;
     private Transform[] wayPoints;
-    public Animator animator;
+    private Animator animator;
+    private float speed;
 
     private int currentWaypointIndex = 0;
 
@@ -14,15 +15,18 @@ public class Patrol : Node
     private float waitCounter = 0f;
     private bool waiting = false;
 
-    public Patrol(Transform transformIn, Transform[] wayPointsIn, Animator animatorIn)
+    public Patrol(Transform transformIn, Transform[] wayPointsIn, Animator animatorIn, float speedIn)
     {
         transform = transformIn;
         wayPoints = wayPointsIn;
         animator = animatorIn;
+        speed = speedIn;
     }
 
     public override NODE_STATE Evaluate()
     {
+        Debug.Log("Patrolling");
+
         if (waiting)
         {
             waitCounter += Time.deltaTime;
@@ -49,7 +53,7 @@ public class Patrol : Node
             }
             else
             {
-                transform.position = Vector3.MoveTowards(transform.position, wp.position, PersonBT.speed * Time.deltaTime);
+                transform.position = Vector3.MoveTowards(transform.position, wp.position, speed * Time.deltaTime);
                 transform.LookAt(wp.position);
             }
         }

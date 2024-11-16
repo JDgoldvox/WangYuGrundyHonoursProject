@@ -4,18 +4,18 @@ using UnityEngine;
 namespace BehaviourTree
 {
     /// <summary>
-    /// Selector node returns 1 state
+    /// Random Selector node returns 1 state
+    /// Order is random
     /// If atleast 1 node is successful, return success
-    /// If no nodes are successful, return failure
+    /// If no nodes are successful, return failure 
     /// </summary>
-    public class Selector : Node
+    public class RandomSelector : Node
     {
-        //makes sure base is called
-        public Selector() : base() { }
-        public Selector(List<Node> children) : base(children) { }
+        public RandomSelector() : base() { }
+        public RandomSelector(List<Node> children) : base(children) { }
 
         public override NODE_STATE Evaluate()
-        { 
+        {
             foreach (Node node in children)
             {
                 switch (node.Evaluate())
@@ -38,3 +38,4 @@ namespace BehaviourTree
         }
     }
 }
+

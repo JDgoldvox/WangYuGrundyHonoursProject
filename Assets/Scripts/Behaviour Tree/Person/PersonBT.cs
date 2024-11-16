@@ -1,19 +1,26 @@
 using BehaviourTree;
-public class PersonBT : Tree
+using System.Collections.Generic;
+using UnityEngine;
+public class PersonBT : BehaviourTree.Tree
 {
     public UnityEngine.Transform[] wayPoints;
     public UnityEngine.Animator animator;
     
-    public static float speed = 5f;
+    public float speed;
+    public float visionRange;
     protected override Node InitTree()
     {
-        Patrol newNode = new Patrol(transform, wayPoints, animator);
-
-        if (newNode != null)
+        Node root = new Selector(new List<Node>
         {
-            UnityEngine.Debug.Log("new node created, its not null");
-        }
+            new Sequence(new List<Node>()
+            {
+                new CheckTargetInRange(transform, animator, visionRange),
+                new GoToTarget(transform, speed)
+            }),
 
-        return newNode;
+            new Patrol(transform,wayPoints, animator, speed)
+        });
+
+        return root;
     }
 }

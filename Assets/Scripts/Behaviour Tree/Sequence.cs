@@ -3,6 +3,11 @@ using UnityEngine;
 
 namespace BehaviourTree
 {
+
+    /// <summary>
+    /// Sequence returns success if all nodes are successful
+    /// If 1 node returns failure, they all fail
+    /// </summary>
     public class Sequence : Node
     {
         //makes sure base is called
@@ -24,6 +29,8 @@ namespace BehaviourTree
                         isAnyChildRunning = true;
                         continue;
                     case NODE_STATE.SUCCESS:
+                        continue;
+                    default:
                         state = NODE_STATE.SUCCESS;
                         return state;
                 }

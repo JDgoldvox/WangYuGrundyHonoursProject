@@ -11,15 +11,6 @@ namespace BehaviourTree
         protected void Start()
         {
             root = InitTree();
-
-            if(root == null)
-            {
-                Debug.Log("node is null ");
-            }
-            else
-            {
-                Debug.Log("node is NOT null ");
-            }
         }
 
         private void Update()
@@ -32,5 +23,7 @@ namespace BehaviourTree
         }
 
         protected abstract Node InitTree();
+
+    
     }
 }
