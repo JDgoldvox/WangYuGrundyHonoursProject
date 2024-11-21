@@ -1,5 +1,8 @@
+using NUnit.Framework;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using System;
 
 namespace BehaviourTree
 {
@@ -16,6 +19,17 @@ namespace BehaviourTree
 
         public override NODE_STATE Evaluate()
         {
+            //Fisher–Yates shuffle
+            int n = children.Count;
+            while (n > 1)
+            {
+                n--;
+                int k = StaticVars.rng.Next(n + 1);
+                Node value = children[k];
+                children[k] = children[n];
+                children[n] = value;
+            }
+
             foreach (Node node in children)
             {
                 switch (node.Evaluate())

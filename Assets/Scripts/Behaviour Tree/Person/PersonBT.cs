@@ -8,17 +8,24 @@ public class PersonBT : BehaviourTree.Tree
     
     public float speed;
     public float visionRange;
+
+    private Transform modelTransform;
+
     protected override Node InitTree()
     {
+        modelTransform = transform.GetChild(0).transform;
+
         Node root = new Selector(new List<Node>
         {
-            new Sequence(new List<Node>()
-            {
-                new CheckTargetInRange(transform, animator, visionRange),
-                new GoToTarget(transform, speed)
-            }),
+            //new Sequence(new List<Node>()
+            //{
+            //    new CheckTargetInRange(transform, animator, visionRange),
+            //    new TaskGoToTarget(transform, speed)
+            //}),
 
-            new Patrol(transform,wayPoints, animator, speed)
+            //new TaskPatrol(transform,wayPoints, animator, speed),
+
+            new TaskRandomWalk(transform, animator, speed),
         });
 
         return root;

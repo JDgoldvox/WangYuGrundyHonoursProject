@@ -2,7 +2,7 @@ using UnityEngine;
 
 using BehaviourTree;
 
-public class Patrol : Node
+public class TaskPatrol : Node
 {
     private Transform transform;
     private Transform[] wayPoints;
@@ -15,7 +15,7 @@ public class Patrol : Node
     private float waitCounter = 0f;
     private bool waiting = false;
 
-    public Patrol(Transform transformIn, Transform[] wayPointsIn, Animator animatorIn, float speedIn)
+    public TaskPatrol(Transform transformIn, Transform[] wayPointsIn, Animator animatorIn, float speedIn)
     {
         transform = transformIn;
         wayPoints = wayPointsIn;

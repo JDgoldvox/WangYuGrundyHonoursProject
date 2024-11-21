@@ -38,7 +38,7 @@ public class CheckTargetInRange : Node
 
                 foreach (Collider collider in colliders)
                 {
-                    Debug.Log($"{collider.gameObject.name}");
+                    //Debug.Log($"{collider.gameObject.name}");
                     if(collider.gameObject != originPosition.gameObject)
                     {
                         otherTargets.Add(collider.transform);
