@@ -1,7 +1,5 @@
 using UnityEngine;
 using BehaviourTree;
-using Unity.Mathematics;
-using System;
 
 public class TaskRandomWalk : Node
 {
@@ -10,8 +8,6 @@ public class TaskRandomWalk : Node
     private Animator animator;
     private float speed;
 
-    private int currentWaypointIndex = 0;
-
     private float walkTime = 5f;
     private float waitCounter = 0f;
     private bool waiting = false;
@@ -19,9 +15,13 @@ public class TaskRandomWalk : Node
     private Vector3 destination = Vector3.zero;
     private float maxRange = 10f;
 
-    public TaskRandomWalk(Transform parentTransform, Animator animatorIn, float speedIn)
+    private PersonBT personBT;
+    float xDist, zDist;
+
+    public TaskRandomWalk(PersonBT parentTransform, Animator animatorIn, float speedIn)
     {
-        targetTransform = parentTransform;
+        personBT = parentTransform;
+        targetTransform = parentTransform.transform;
         animator = animatorIn;
         speed = speedIn;
     }
@@ -31,13 +31,18 @@ public class TaskRandomWalk : Node
         //Generate position to go to
         if(destination == Vector3.zero)
         {
-            float x = UnityEngine.Random.Range(targetTransform.position.x - maxRange, targetTransform.position.x + maxRange);
-            float z = UnityEngine.Random.Range(targetTransform.position.z - maxRange, targetTransform.position.z + maxRange);
-            destination = new Vector3(x,targetTransform.position.y,z);
+            Transform personBTTransform = personBT.transform;
+            float x = UnityEngine.Random.Range(personBTTransform.position.x - maxRange, personBTTransform.position.x + maxRange);
+            float z = UnityEngine.Random.Range(personBTTransform.position.z - maxRange, personBTTransform.position.z + maxRange);
+            destination = new Vector3(x, 0, z);
             animator.SetBool("isWalking", true);
+            xDist = Mathf.Abs(targetTransform.position.x - destination.x);
+            zDist = Mathf.Abs(targetTransform.position.z - destination.z);
+
+            //Debug.Log("Targetting " + destination);
         }
 
-        if (Vector3.Distance(destination, targetTransform.position) > 0.2f)
+        if (xDist > 0.2f && zDist > 0.2f)
         {
             targetTransform.position = Vector3.MoveTowards(
                 targetTransform.position,
@@ -46,6 +51,10 @@ public class TaskRandomWalk : Node
             );
 
             targetTransform.LookAt(destination);
+            xDist = Mathf.Abs(targetTransform.position.x - destination.x);
+            zDist = Mathf.Abs(targetTransform.position.z - destination.z);
+
+            //Debug.Log("At " + targetTransform.transform.position);
         }
         else
         {

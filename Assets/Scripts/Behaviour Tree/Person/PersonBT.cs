@@ -9,12 +9,13 @@ public class PersonBT : BehaviourTree.Tree
     public float speed;
     public float visionRange;
 
-    private Transform modelTransform;
+    private void Awake()
+    {
+        animator = GetComponent<Animator>();
+    }
 
     protected override Node InitTree()
     {
-        modelTransform = transform.GetChild(0).transform;
-
         Node root = new Selector(new List<Node>
         {
             //new Sequence(new List<Node>()
@@ -25,7 +26,7 @@ public class PersonBT : BehaviourTree.Tree
 
             //new TaskPatrol(transform,wayPoints, animator, speed),
 
-            new TaskRandomWalk(transform, animator, speed),
+            new TaskRandomWalk(this, animator, speed),
         });
 
         return root;
