@@ -18,11 +18,11 @@ public class PersonBT : BehaviourTree.Tree
     {
         Node root = new Selector(new List<Node>
         {
-            //new Sequence(new List<Node>()
-            //{
-            //    new CheckTargetInRange(transform, animator, visionRange),
-            //    new TaskGoToTarget(transform, speed)
-            //}),
+            new Sequence(new List<Node>()
+            {
+                new CheckTargetInRange(transform, animator, visionRange),
+                new TaskGoToTarget(transform, speed)
+            }),
 
             //new TaskPatrol(transform,wayPoints, animator, speed),
 

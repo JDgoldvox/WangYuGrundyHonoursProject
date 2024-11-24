@@ -15,7 +15,6 @@ public class TaskRandomWalk : Node
 
     private PersonBT personBT;
     float xDist, zDist;
-    bool isOnCooldown = false;
 
     public TaskRandomWalk(PersonBT parentTransform, Animator animatorIn, float speedIn)
     {
@@ -33,13 +32,15 @@ public class TaskRandomWalk : Node
             return NODE_STATE.FAILURE; // Still in cooldown
         }
 
+        Debug.Log("Walking random direction");
+
         //Generate position to go to
         if (destination == Vector3.zero)
         {
             Transform personBTTransform = personBT.transform;
             float x = UnityEngine.Random.Range(personBTTransform.position.x - maxRange, personBTTransform.position.x + maxRange);
             float z = UnityEngine.Random.Range(personBTTransform.position.z - maxRange, personBTTransform.position.z + maxRange);
-            destination = new Vector3(x, 0, z);
+            destination = new Vector3(x, 0.5f, z);
             animator.SetBool("isWalking", true);
             xDist = Mathf.Abs(targetTransform.position.x - destination.x);
             zDist = Mathf.Abs(targetTransform.position.z - destination.z);
@@ -68,8 +69,7 @@ public class TaskRandomWalk : Node
             animator.SetBool("isWalking", false);
 
             //apply cooldown
-            isOnCooldown = true;
-            waitCounter = Time.time + 3f; //Cooldown duration of 3 seconds
+            waitCounter = Time.time + 2f; //Cooldown duration of 3 seconds
 
             return state;
         }

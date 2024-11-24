@@ -930,6 +930,7 @@ GameObject:
   - component: {fileID: 6228121249329494515}
   - component: {fileID: 587179408459116187}
   - component: {fileID: 4590868740481530863}
+  - component: {fileID: 8459365050913901807}
   m_Layer: 6
   m_Name: Person
   m_TagString: Untagged
@@ -1041,7 +1042,7 @@ MonoBehaviour:
   wayPoints: []
   animator: {fileID: 0}
   speed: 3
-  visionRange: 2
+  visionRange: 8
 --- !u!114 &4590868740481530863
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1052,6 +1053,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 074afa3c95714ae4e8e5fd840797efa1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8459365050913901807
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2818350069776596432}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1487e12459c1d4644969b3b0412a090f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &3103189848066543394

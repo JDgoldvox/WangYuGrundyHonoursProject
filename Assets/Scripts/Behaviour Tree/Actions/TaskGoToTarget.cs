@@ -9,6 +9,7 @@ public class TaskGoToTarget : Node
 {
     private Transform originTransform;
     private float speed;
+    private float waitCounter = 0;
 
     public TaskGoToTarget(Transform transform, float speedIn)
     {
@@ -18,12 +19,19 @@ public class TaskGoToTarget : Node
 
     public override NODE_STATE Evaluate()
     {
+
+        if (Time.time <= waitCounter)
+        {
+            return NODE_STATE.FAILURE; // Still in cooldown
+        }
+
         Debug.Log("going to target");
 
         List<Transform> target = (List<Transform>)GetData("targets");
 
         if (Vector3.Distance(target[0].position, originTransform.position) > 2f)
         {
+            Debug.Log("walking to target");
             originTransform.position = Vector3.MoveTowards(
                 originTransform.position,
                 target[0].position,
@@ -35,6 +43,8 @@ public class TaskGoToTarget : Node
         else
         {
             state = NODE_STATE.SUCCESS;
+            waitCounter = Time.time + 3f; //Cooldown duration of 3 seconds
+            Debug.Log(waitCounter);
             return state;
         }
 

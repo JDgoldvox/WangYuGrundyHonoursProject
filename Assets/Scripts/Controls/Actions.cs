@@ -37,13 +37,11 @@ public class Actions : MonoBehaviour
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out RaycastHit hit, 1000, interactableLayerMask))
             {
-                Debug.Log(hit.point);
-                Debug.Log("hit");
+                //Debug.Log(hit.point);
+                //Debug.Log("hit");
 
                 Instantiate(personPrefab, hit.point, Quaternion.identity);
             }
         }
-
-       
     }
 }
