@@ -34,8 +34,6 @@ public class Actions : MonoBehaviour
     {
         if (context.performed)
         {
-            Debug.Log("HELLO");
-
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out RaycastHit hit, 1000, interactableLayerMask))
             {

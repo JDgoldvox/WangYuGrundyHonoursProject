@@ -3,20 +3,19 @@ using BehaviourTree;
 
 public class TaskRandomWalk : Node
 {
-
+    private BehaviourTreeUtility S_BehaviourTreeUtility;
     private Transform targetTransform;
     private Animator animator;
     private float speed;
 
-    private float walkTime = 5f;
     private float waitCounter = 0f;
-    private bool waiting = false;
 
     private Vector3 destination = Vector3.zero;
     private float maxRange = 10f;
 
     private PersonBT personBT;
     float xDist, zDist;
+    bool isOnCooldown = false;
 
     public TaskRandomWalk(PersonBT parentTransform, Animator animatorIn, float speedIn)
     {
@@ -24,12 +23,18 @@ public class TaskRandomWalk : Node
         targetTransform = parentTransform.transform;
         animator = animatorIn;
         speed = speedIn;
+        S_BehaviourTreeUtility = parentTransform.transform.GetComponent<BehaviourTreeUtility>();
     }
 
     public override NODE_STATE Evaluate()
     {
+        if (Time.time <= waitCounter)
+        {
+            return NODE_STATE.FAILURE; // Still in cooldown
+        }
+
         //Generate position to go to
-        if(destination == Vector3.zero)
+        if (destination == Vector3.zero)
         {
             Transform personBTTransform = personBT.transform;
             float x = UnityEngine.Random.Range(personBTTransform.position.x - maxRange, personBTTransform.position.x + maxRange);
@@ -61,6 +66,11 @@ public class TaskRandomWalk : Node
             state = NODE_STATE.SUCCESS;
             destination = Vector3.zero;
             animator.SetBool("isWalking", false);
+
+            //apply cooldown
+            isOnCooldown = true;
+            waitCounter = Time.time + 3f; //Cooldown duration of 3 seconds
+
             return state;
         }
 
