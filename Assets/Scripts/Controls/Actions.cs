@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Controls;
 public class Actions : MonoBehaviour
 {
     public static GameInputActionMap inputActionMap;
@@ -10,14 +11,18 @@ public class Actions : MonoBehaviour
     InputAction cameraLeft;
     InputAction cameraRight;
     InputAction cameraDown;
+    InputAction cameraDrag;
 
     [SerializeField] private GameObject personPrefab;
     [SerializeField] private float cameraMoveSpeed;
+    [SerializeField] private float cameraZoomSpeed;
+    [SerializeField] private float cameraRotationSpeed;
 
-    private bool isCameraMovingUp = false;
+    private bool isCameraMovingForward = false;
     private bool isCameraMovingRight = false;
     private bool isCameraMovingLeft = false;
-    private bool isCameraMovingDown = false;
+    private bool isCameraMovingBackward = false;
+    private bool isCameraDragging = false;
 
     private void Awake()
     {
@@ -35,10 +40,10 @@ public class Actions : MonoBehaviour
         placePerson.performed += PlacePerson;
 
         //Camera
-        cameraUp = inputActionMap.Camera.Up;
+        cameraUp = inputActionMap.Camera.Forward;
         cameraUp.Enable();
-        cameraUp.performed += CameraUp;
-        cameraUp.canceled += CameraUp;
+        cameraUp.performed += CameraForward;
+        cameraUp.canceled += CameraForward;
 
         cameraLeft = inputActionMap.Camera.Left;
         cameraLeft.Enable();
@@ -50,10 +55,15 @@ public class Actions : MonoBehaviour
         cameraRight.performed += CameraRight;
         cameraRight.canceled += CameraRight;
 
-        cameraDown = inputActionMap.Camera.Down;
+        cameraDown = inputActionMap.Camera.Backward;
         cameraDown.Enable();
-        cameraDown.performed += CameraDown;
-        cameraDown.canceled += CameraDown;
+        cameraDown.performed += CameraBackward;
+        cameraDown.canceled += CameraBackward;
+
+        cameraDrag = inputActionMap.Camera.DragCamera;
+        cameraDrag.Enable();
+        cameraDrag.performed += CameraDrag;
+        cameraDrag.canceled += CameraDrag;
     }
 
     private void OnDisable()
@@ -65,6 +75,7 @@ public class Actions : MonoBehaviour
         cameraLeft.Disable();
         cameraRight.Disable();
         cameraDown.Disable();
+        cameraDrag.Disable();
     }
 
     private void PlacePerson(InputAction.CallbackContext context)
@@ -84,37 +95,60 @@ public class Actions : MonoBehaviour
 
     private void Update()
     {
-        if (isCameraMovingUp)
+        Vector3 camPos = Camera.main.transform.position;
+
+        if (isCameraMovingForward)
         {
-            Vector3 camPos = Camera.main.transform.position;
-            Camera.main.transform.position = new Vector3(camPos.x, camPos.y, camPos.z + (cameraMoveSpeed * Time.deltaTime));
+            var forwardVector = Camera.main.transform.forward;
+            var movement = forwardVector * cameraMoveSpeed * Time.deltaTime;
+            Camera.main.transform.position += movement;
         }
-        if (isCameraMovingDown)
+        if (isCameraMovingBackward)
         {
-            Vector3 camPos = Camera.main.transform.position;
-            Camera.main.transform.position = new Vector3(camPos.x, camPos.y, camPos.z - (cameraMoveSpeed * Time.deltaTime));
+            var backwardVector = -Camera.main.transform.forward;
+            var movement = backwardVector * cameraMoveSpeed * Time.deltaTime;
+            Camera.main.transform.position += movement;
         }
         if (isCameraMovingLeft)
         {
-            Vector3 camPos = Camera.main.transform.position;
-            Camera.main.transform.position = new Vector3(camPos.x - (cameraMoveSpeed * Time.deltaTime), camPos.y, camPos.z);
+            var leftVector = -Camera.main.transform.right;
+            var movement = leftVector * cameraMoveSpeed * Time.deltaTime;
+            Camera.main.transform.position += movement;
         }
         if (isCameraMovingRight)
         {
-            Vector3 camPos = Camera.main.transform.position;
-            Camera.main.transform.position = new Vector3(camPos.x + (cameraMoveSpeed * Time.deltaTime), camPos.y, camPos.z);
+            var rightVector = Camera.main.transform.right;
+            var movement = rightVector * cameraMoveSpeed * Time.deltaTime;
+            Camera.main.transform.position += movement;
         }
+
+        camPos = Camera.main.transform.position;
+
+        //scroll
+        var mouse = Mouse.current;
+        Camera.main.transform.position = new Vector3(camPos.x, camPos.y - (cameraZoomSpeed * Input.mouseScrollDelta.y * Time.deltaTime), camPos.z);
+
+        ////drag
+        //var camRot = Camera.main.transform.rotation;
+
+        //if (isCameraDragging)
+        //{
+        //    var cameraRotatePosX = camRot.eulerAngles.x * mouse.delta.x.magnitude * Time.deltaTime;
+        //    Camera.main.transform.eulerAngles = new Vector3(cameraRotatePosX, camRot.y, camRot.z);
+            
+        //}
+
     }
 
-    private void CameraUp(InputAction.CallbackContext context)
+    private void CameraForward(InputAction.CallbackContext context)
     {
         if (context.performed)
         {
-            isCameraMovingUp = true;
+            isCameraMovingForward = true;
         }
         else if (context.canceled)
         {
-            isCameraMovingUp = false;
+            isCameraMovingForward = false;
         }
     }
 
@@ -142,15 +176,29 @@ public class Actions : MonoBehaviour
         }
     }
 
-    private void CameraDown(InputAction.CallbackContext context)
+    private void CameraBackward(InputAction.CallbackContext context)
     {
         if (context.performed)
         {
-            isCameraMovingDown = true;
+            isCameraMovingBackward = true;
         }
         else if (context.canceled)
         {
-            isCameraMovingDown = false;
+            isCameraMovingBackward = false;
+        }
+    }
+
+    private void CameraDrag(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            isCameraDragging = true;
+
+            Debug.Log("Dragging");
+        }
+        else if (context.canceled)
+        {
+            isCameraDragging = false;
         }
     }
 }

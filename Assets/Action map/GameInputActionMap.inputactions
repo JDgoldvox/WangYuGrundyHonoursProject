@@ -34,7 +34,7 @@
             "id": "5e0aefd3-d7a2-4b37-bf02-0eb3bf94d41b",
             "actions": [
                 {
-                    "name": "Up",
+                    "name": "Forward",
                     "type": "Button",
                     "id": "e6d88788-ee17-4328-9eeb-aba854525d31",
                     "expectedControlType": "",
@@ -61,10 +61,19 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Down",
+                    "name": "Backward",
                     "type": "Button",
                     "id": "ded736d8-b32a-4bea-bb0d-7aa13038c6bb",
                     "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "DragCamera",
+                    "type": "PassThrough",
+                    "id": "d67d7026-92ab-490b-9a4b-d3a78adf59d7",
+                    "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -78,7 +87,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Up",
+                    "action": "Forward",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -111,7 +120,18 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Down",
+                    "action": "Backward",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3b817a7d-7d32-4a67-a5d1-a8770083f6ff",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "DragCamera",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

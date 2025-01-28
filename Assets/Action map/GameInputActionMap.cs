@@ -56,7 +56,7 @@ public partial class @GameInputActionMap: IInputActionCollection2, IDisposable
             ""id"": ""5e0aefd3-d7a2-4b37-bf02-0eb3bf94d41b"",
             ""actions"": [
                 {
-                    ""name"": ""Up"",
+                    ""name"": ""Forward"",
                     ""type"": ""Button"",
                     ""id"": ""e6d88788-ee17-4328-9eeb-aba854525d31"",
                     ""expectedControlType"": """",
@@ -83,10 +83,19 @@ public partial class @GameInputActionMap: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Down"",
+                    ""name"": ""Backward"",
                     ""type"": ""Button"",
                     ""id"": ""ded736d8-b32a-4bea-bb0d-7aa13038c6bb"",
                     ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""DragCamera"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""d67d7026-92ab-490b-9a4b-d3a78adf59d7"",
+                    ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
@@ -100,7 +109,7 @@ public partial class @GameInputActionMap: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Up"",
+                    ""action"": ""Forward"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -133,7 +142,18 @@ public partial class @GameInputActionMap: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Down"",
+                    ""action"": ""Backward"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3b817a7d-7d32-4a67-a5d1-a8770083f6ff"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""DragCamera"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -147,10 +167,11 @@ public partial class @GameInputActionMap: IInputActionCollection2, IDisposable
         m_Player_PlacePerson = m_Player.FindAction("PlacePerson", throwIfNotFound: true);
         // Camera
         m_Camera = asset.FindActionMap("Camera", throwIfNotFound: true);
-        m_Camera_Up = m_Camera.FindAction("Up", throwIfNotFound: true);
+        m_Camera_Forward = m_Camera.FindAction("Forward", throwIfNotFound: true);
         m_Camera_Right = m_Camera.FindAction("Right", throwIfNotFound: true);
         m_Camera_Left = m_Camera.FindAction("Left", throwIfNotFound: true);
-        m_Camera_Down = m_Camera.FindAction("Down", throwIfNotFound: true);
+        m_Camera_Backward = m_Camera.FindAction("Backward", throwIfNotFound: true);
+        m_Camera_DragCamera = m_Camera.FindAction("DragCamera", throwIfNotFound: true);
     }
 
     ~@GameInputActionMap()
@@ -264,18 +285,20 @@ public partial class @GameInputActionMap: IInputActionCollection2, IDisposable
     // Camera
     private readonly InputActionMap m_Camera;
     private List<ICameraActions> m_CameraActionsCallbackInterfaces = new List<ICameraActions>();
-    private readonly InputAction m_Camera_Up;
+    private readonly InputAction m_Camera_Forward;
     private readonly InputAction m_Camera_Right;
     private readonly InputAction m_Camera_Left;
-    private readonly InputAction m_Camera_Down;
+    private readonly InputAction m_Camera_Backward;
+    private readonly InputAction m_Camera_DragCamera;
     public struct CameraActions
     {
         private @GameInputActionMap m_Wrapper;
         public CameraActions(@GameInputActionMap wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Up => m_Wrapper.m_Camera_Up;
+        public InputAction @Forward => m_Wrapper.m_Camera_Forward;
         public InputAction @Right => m_Wrapper.m_Camera_Right;
         public InputAction @Left => m_Wrapper.m_Camera_Left;
-        public InputAction @Down => m_Wrapper.m_Camera_Down;
+        public InputAction @Backward => m_Wrapper.m_Camera_Backward;
+        public InputAction @DragCamera => m_Wrapper.m_Camera_DragCamera;
         public InputActionMap Get() { return m_Wrapper.m_Camera; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -285,34 +308,40 @@ public partial class @GameInputActionMap: IInputActionCollection2, IDisposable
         {
             if (instance == null || m_Wrapper.m_CameraActionsCallbackInterfaces.Contains(instance)) return;
             m_Wrapper.m_CameraActionsCallbackInterfaces.Add(instance);
-            @Up.started += instance.OnUp;
-            @Up.performed += instance.OnUp;
-            @Up.canceled += instance.OnUp;
+            @Forward.started += instance.OnForward;
+            @Forward.performed += instance.OnForward;
+            @Forward.canceled += instance.OnForward;
             @Right.started += instance.OnRight;
             @Right.performed += instance.OnRight;
             @Right.canceled += instance.OnRight;
             @Left.started += instance.OnLeft;
             @Left.performed += instance.OnLeft;
             @Left.canceled += instance.OnLeft;
-            @Down.started += instance.OnDown;
-            @Down.performed += instance.OnDown;
-            @Down.canceled += instance.OnDown;
+            @Backward.started += instance.OnBackward;
+            @Backward.performed += instance.OnBackward;
+            @Backward.canceled += instance.OnBackward;
+            @DragCamera.started += instance.OnDragCamera;
+            @DragCamera.performed += instance.OnDragCamera;
+            @DragCamera.canceled += instance.OnDragCamera;
         }
 
         private void UnregisterCallbacks(ICameraActions instance)
         {
-            @Up.started -= instance.OnUp;
-            @Up.performed -= instance.OnUp;
-            @Up.canceled -= instance.OnUp;
+            @Forward.started -= instance.OnForward;
+            @Forward.performed -= instance.OnForward;
+            @Forward.canceled -= instance.OnForward;
             @Right.started -= instance.OnRight;
             @Right.performed -= instance.OnRight;
             @Right.canceled -= instance.OnRight;
             @Left.started -= instance.OnLeft;
             @Left.performed -= instance.OnLeft;
             @Left.canceled -= instance.OnLeft;
-            @Down.started -= instance.OnDown;
-            @Down.performed -= instance.OnDown;
-            @Down.canceled -= instance.OnDown;
+            @Backward.started -= instance.OnBackward;
+            @Backward.performed -= instance.OnBackward;
+            @Backward.canceled -= instance.OnBackward;
+            @DragCamera.started -= instance.OnDragCamera;
+            @DragCamera.performed -= instance.OnDragCamera;
+            @DragCamera.canceled -= instance.OnDragCamera;
         }
 
         public void RemoveCallbacks(ICameraActions instance)
@@ -336,9 +365,10 @@ public partial class @GameInputActionMap: IInputActionCollection2, IDisposable
     }
     public interface ICameraActions
     {
-        void OnUp(InputAction.CallbackContext context);
+        void OnForward(InputAction.CallbackContext context);
         void OnRight(InputAction.CallbackContext context);
         void OnLeft(InputAction.CallbackContext context);
-        void OnDown(InputAction.CallbackContext context);
+        void OnBackward(InputAction.CallbackContext context);
+        void OnDragCamera(InputAction.CallbackContext context);
     }
 }
