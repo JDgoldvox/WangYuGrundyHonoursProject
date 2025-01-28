@@ -16,7 +16,7 @@ public class PersonBT : BehaviourTree.Tree
 
     protected override Node InitTree()
     {
-        Node root = new Selector(new List<Node>
+        Node root = new RandomSelector(new List<Node>
         {
             new Sequence(new List<Node>()
             {

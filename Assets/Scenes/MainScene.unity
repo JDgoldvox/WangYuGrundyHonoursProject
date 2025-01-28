@@ -837,7 +837,7 @@ GameObject:
   - component: {fileID: 938690361}
   - component: {fileID: 938690362}
   m_Layer: 0
-  m_Name: Statics
+  m_Name: GameManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -884,6 +884,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   personPrefab: {fileID: 2818350069776596432, guid: 03afc66d99f460648933506492c5784e,
     type: 3}
+  cameraMoveSpeed: 10
 --- !u!1001 &1080384474
 PrefabInstance:
   m_ObjectHideFlags: 0
