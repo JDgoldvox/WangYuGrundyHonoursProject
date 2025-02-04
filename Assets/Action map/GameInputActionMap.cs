@@ -93,9 +93,9 @@ public partial class @GameInputActionMap: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""DragCamera"",
-                    ""type"": ""PassThrough"",
+                    ""type"": ""Button"",
                     ""id"": ""d67d7026-92ab-490b-9a4b-d3a78adf59d7"",
-                    ""expectedControlType"": ""Vector2"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false

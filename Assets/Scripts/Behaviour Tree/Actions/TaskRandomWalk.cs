@@ -32,7 +32,7 @@ public class TaskRandomWalk : Node
             return NODE_STATE.FAILURE; // Still in cooldown
         }
 
-        Debug.Log("Walking random direction");
+        //Debug.Log("Walking random direction");
 
         //Generate position to go to
         if (destination == Vector3.zero)

@@ -1,6 +1,9 @@
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Controls;
+using static UnityEngine.Timeline.AnimationPlayableAsset;
 public class Actions : MonoBehaviour
 {
     public static GameInputActionMap inputActionMap;
@@ -17,6 +20,11 @@ public class Actions : MonoBehaviour
     [SerializeField] private float cameraMoveSpeed;
     [SerializeField] private float cameraZoomSpeed;
     [SerializeField] private float cameraRotationSpeed;
+    [SerializeField] private float cameraSensitivity;
+    private float rotationX = 0f;
+    private float rotationY = 0f;
+
+    private Vector3 moveDirection = Vector2.zero;
 
     private bool isCameraMovingForward = false;
     private bool isCameraMovingRight = false;
@@ -128,15 +136,20 @@ public class Actions : MonoBehaviour
         var mouse = Mouse.current;
         Camera.main.transform.position = new Vector3(camPos.x, camPos.y - (cameraZoomSpeed * Input.mouseScrollDelta.y * Time.deltaTime), camPos.z);
 
-        ////drag
-        //var camRot = Camera.main.transform.rotation;
+        //drag
 
-        //if (isCameraDragging)
-        //{
-        //    var cameraRotatePosX = camRot.eulerAngles.x * mouse.delta.x.magnitude * Time.deltaTime;
-        //    Camera.main.transform.eulerAngles = new Vector3(cameraRotatePosX, camRot.y, camRot.z);
-            
-        //}
+        if (isCameraDragging)
+        {
+            float mouseX = Input.GetAxis("Mouse X") * cameraSensitivity;
+            float mouseY = Input.GetAxis("Mouse Y") * cameraSensitivity;
+
+            rotationX -= mouseY;
+            rotationY += mouseX; 
+
+            rotationX = Mathf.Clamp(rotationX, -90f, 90f);
+
+            Camera.main.transform.rotation = Quaternion.Euler(rotationX, rotationY, 0);
+        }
 
     }
 
@@ -192,13 +205,18 @@ public class Actions : MonoBehaviour
     {
         if (context.performed)
         {
-            isCameraDragging = true;
+            isCameraDragging = !isCameraDragging;
 
-            Debug.Log("Dragging");
-        }
-        else if (context.canceled)
-        {
-            isCameraDragging = false;
+            if(isCameraDragging)
+            {
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false; 
+            }
+            else
+            {
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+            }
         }
     }
 }

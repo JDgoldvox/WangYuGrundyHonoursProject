@@ -17,7 +17,7 @@ public class CheckTargetInRange : Node
 
     public override NODE_STATE Evaluate()
     {
-        Debug.Log("checking targets in range");
+       // Debug.Log("checking targets in range");
 
         object t = GetData("targets");
 
@@ -32,7 +32,7 @@ public class CheckTargetInRange : Node
             //DO NOT COUNT ITSELF, SO MORE THAN 1 OBJ
             if (colliders.Length > 1)
             {
-                Debug.Log("found more than 1 object");
+                //Debug.Log("found more than 1 object");
                 
                 List<Transform> otherTargets = new List <Transform>();
 
@@ -52,7 +52,7 @@ public class CheckTargetInRange : Node
                 return state;
             }
 
-            Debug.Log("target fail");
+            //Debug.Log("target fail");
 
             //if 0 objects found
             state = NODE_STATE.FAILURE;

@@ -886,6 +886,8 @@ MonoBehaviour:
     type: 3}
   cameraMoveSpeed: 10
   cameraZoomSpeed: 100
+  cameraRotationSpeed: 80
+  cameraSensitivity: 3
 --- !u!1001 &1080384474
 PrefabInstance:
   m_ObjectHideFlags: 0

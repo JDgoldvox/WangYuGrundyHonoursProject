@@ -25,13 +25,13 @@ public class TaskGoToTarget : Node
             return NODE_STATE.FAILURE; // Still in cooldown
         }
 
-        Debug.Log("going to target");
+        //Debug.Log("going to target");
 
         List<Transform> target = (List<Transform>)GetData("targets");
 
         if (Vector3.Distance(target[0].position, originTransform.position) > 0.5f)
         {
-            Debug.Log("walking to target");
+            //Debug.Log("walking to target");
             originTransform.position = Vector3.MoveTowards(
                 originTransform.position,
                 target[0].position,
