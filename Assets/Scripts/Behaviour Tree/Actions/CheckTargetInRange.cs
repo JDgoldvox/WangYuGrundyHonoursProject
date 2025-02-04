@@ -17,8 +17,6 @@ public class CheckTargetInRange : Node
 
     public override NODE_STATE Evaluate()
     {
-       // Debug.Log("checking targets in range");
-
         object t = GetData("targets");
 
         if (t == null)
@@ -51,8 +49,6 @@ public class CheckTargetInRange : Node
                 state = NODE_STATE.SUCCESS;
                 return state;
             }
-
-            //Debug.Log("target fail");
 
             //if 0 objects found
             state = NODE_STATE.FAILURE;

@@ -40,16 +40,15 @@ public class TaskRandomWalk : Node
             Transform personBTTransform = personBT.transform;
             float x = UnityEngine.Random.Range(personBTTransform.position.x - maxRange, personBTTransform.position.x + maxRange);
             float z = UnityEngine.Random.Range(personBTTransform.position.z - maxRange, personBTTransform.position.z + maxRange);
-            destination = new Vector3(x, 0.5f, z);
-            animator.SetBool("isWalking", true);
+            destination = new Vector3(x, personBTTransform.transform.position.y, z);
             xDist = Mathf.Abs(targetTransform.position.x - destination.x);
             zDist = Mathf.Abs(targetTransform.position.z - destination.z);
-
-            //Debug.Log("Targetting " + destination);
         }
 
         if (xDist > 0.2f && zDist > 0.2f)
         {
+            animator.SetBool("isWalking", true);
+
             targetTransform.position = Vector3.MoveTowards(
                 targetTransform.position,
                 destination,
@@ -59,8 +58,6 @@ public class TaskRandomWalk : Node
             targetTransform.LookAt(destination);
             xDist = Mathf.Abs(targetTransform.position.x - destination.x);
             zDist = Mathf.Abs(targetTransform.position.z - destination.z);
-
-            //Debug.Log("At " + targetTransform.transform.position);
         }
         else
         {

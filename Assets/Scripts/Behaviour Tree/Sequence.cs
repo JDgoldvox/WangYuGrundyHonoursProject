@@ -3,7 +3,6 @@ using UnityEngine;
 
 namespace BehaviourTree
 {
-
     /// <summary>
     /// Sequence returns success if all nodes are successful
     /// If 1 node returns failure, they all fail
@@ -39,7 +38,6 @@ namespace BehaviourTree
             state = isAnyChildRunning ? NODE_STATE.RUNNING : NODE_STATE.SUCCESS;
             return state;
         }
-        
     }
 }
 

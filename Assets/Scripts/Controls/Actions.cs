@@ -17,14 +17,13 @@ public class Actions : MonoBehaviour
     InputAction cameraDrag;
 
     [SerializeField] private GameObject personPrefab;
+    [SerializeField] private Transform personSpawnParent;
     [SerializeField] private float cameraMoveSpeed;
     [SerializeField] private float cameraZoomSpeed;
     [SerializeField] private float cameraRotationSpeed;
     [SerializeField] private float cameraSensitivity;
     private float rotationX = 0f;
     private float rotationY = 0f;
-
-    private Vector3 moveDirection = Vector2.zero;
 
     private bool isCameraMovingForward = false;
     private bool isCameraMovingRight = false;
@@ -93,10 +92,7 @@ public class Actions : MonoBehaviour
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out RaycastHit hit, 1000, interactableLayerMask))
             {
-                //Debug.Log(hit.point);
-                //Debug.Log("hit");
-
-                Instantiate(personPrefab, hit.point, Quaternion.identity);
+                Instantiate(personPrefab, hit.point, Quaternion.identity, personSpawnParent);
             }
         }
     }

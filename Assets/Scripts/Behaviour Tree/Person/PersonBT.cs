@@ -14,17 +14,16 @@ public class PersonBT : BehaviourTree.Tree
         animator = GetComponent<Animator>();
     }
 
+    //new TaskPatrol(transform,wayPoints, animator, speed),
     protected override Node InitTree()
     {
-        Node root = new RandomSelector(new List<Node>
+        Node root = new Selector(new List<Node>
         {
             new Sequence(new List<Node>()
             {
                 new CheckTargetInRange(transform, animator, visionRange),
-                new TaskGoToTarget(transform, speed)
+                new TaskGoToTarget(transform, speed, animator)
             }),
-
-            //new TaskPatrol(transform,wayPoints, animator, speed),
 
             new TaskRandomWalk(this, animator, speed),
         });

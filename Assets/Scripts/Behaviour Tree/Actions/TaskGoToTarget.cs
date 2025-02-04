@@ -10,11 +10,13 @@ public class TaskGoToTarget : Node
     private Transform originTransform;
     private float speed;
     private float waitCounter = 0;
+    private Animator animator;
 
-    public TaskGoToTarget(Transform transform, float speedIn)
+    public TaskGoToTarget(Transform transform, float speedIn, Animator animatorIn)
     {
         originTransform = transform;
         speed = speedIn;
+        animator = animatorIn;
     }
 
     public override NODE_STATE Evaluate()
@@ -25,31 +27,37 @@ public class TaskGoToTarget : Node
             return NODE_STATE.FAILURE; // Still in cooldown
         }
 
-        //Debug.Log("going to target");
-
         List<Transform> target = (List<Transform>)GetData("targets");
 
-        if (Vector3.Distance(target[0].position, originTransform.position) > 0.5f)
+        Vector3 positionToGoTo = target[0].position;
+        positionToGoTo.y = originTransform.transform.position.y;
+
+        if (Vector3.Distance(positionToGoTo,originTransform.position) > 3f)
         {
+            if(!animator.GetBool("isWalking"))
+            {
+                animator.SetBool("isWalking", true);
+            }
+
             //Debug.Log("walking to target");
             originTransform.position = Vector3.MoveTowards(
                 originTransform.position,
-                target[0].position,
+                positionToGoTo,
                 speed * Time.deltaTime
                 );
 
-            originTransform.LookAt(target[0].position);
+            originTransform.LookAt(positionToGoTo);
+            originTransform.eulerAngles = new Vector3(0, originTransform.eulerAngles.y, 0);
         }
         else
         {
             state = NODE_STATE.SUCCESS;
             waitCounter = Time.time + 3f; //Cooldown duration of 3 seconds
-            Debug.Log(waitCounter);
+            animator.SetBool("isWalking", false);
             return state;
         }
 
         state = NODE_STATE.RUNNING;
         return state;   
     }
-
 }
