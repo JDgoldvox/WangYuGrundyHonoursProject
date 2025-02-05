@@ -24,7 +24,7 @@ public class PersonBT : BehaviourTree.Tree
                 new CheckTargetInRange(transform, animator, visionRange),
                 new TaskGoToTarget(transform, speed, animator)
             }),
-
+            new TaskMeditate(transform, animator),
             new TaskRandomWalk(this, animator, speed),
         });
 
