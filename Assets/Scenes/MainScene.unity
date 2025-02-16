@@ -254,7 +254,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   wayPoints: []
   animator: {fileID: 31147702}
-  speed: 10
+  nearestPlayer: {fileID: 0}
+  forcedAttentionToPlayer: {fileID: 0}
+  walkSpeed: 0
   visionRange: 10
 --- !u!54 &31147697
 Rigidbody:
@@ -1155,6 +1157,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Person
+      objectReference: {fileID: 0}
+    - target: {fileID: 2818350069776596432, guid: 03afc66d99f460648933506492c5784e,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4864132633806961151, guid: 03afc66d99f460648933506492c5784e,
         type: 3}

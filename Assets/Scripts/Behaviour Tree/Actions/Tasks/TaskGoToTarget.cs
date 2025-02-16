@@ -7,21 +7,22 @@ using System.Collections.Generic;
 /// </summary>
 public class TaskGoToTarget : Node
 {
-    private Transform originTransform;
+    PersonBT personBT;
+    private Transform btTransform;
     private float speed;
     private float waitCounter = 0;
     private Animator animator;
 
-    public TaskGoToTarget(Transform transform, float speedIn, Animator animatorIn)
+    public TaskGoToTarget(PersonBT bt)
     {
-        originTransform = transform;
-        speed = speedIn;
-        animator = animatorIn;
+        personBT = bt;
+        btTransform = personBT.transform;
+        speed = personBT.walkSpeed;
+        animator = personBT.animator;
     }
 
     public override NODE_STATE Evaluate()
     {
-
         if (Time.time <= waitCounter)
         {
             return NODE_STATE.FAILURE; // Still in cooldown
@@ -29,25 +30,31 @@ public class TaskGoToTarget : Node
 
         List<Transform> target = (List<Transform>)GetData("targets");
 
-        Vector3 positionToGoTo = target[0].position;
-        positionToGoTo.y = originTransform.transform.position.y;
+        if(target[0] == null)
+        {
+            return NODE_STATE.FAILURE;
+        }
 
-        if (Vector3.Distance(positionToGoTo,originTransform.position) > 3f)
+        Vector3 positionToGoTo = target[0].position;
+        positionToGoTo.y = btTransform.transform.position.y;
+
+        if (Vector3.Distance(positionToGoTo,btTransform.position) > 3f)
         {
             if(!animator.GetBool("isWalking"))
             {
+                personBT.ResetAnimations();
                 animator.SetBool("isWalking", true);
             }
 
             //Debug.Log("walking to target");
-            originTransform.position = Vector3.MoveTowards(
-                originTransform.position,
+            btTransform.position = Vector3.MoveTowards(
+                btTransform.position,
                 positionToGoTo,
                 speed * Time.deltaTime
                 );
 
-            originTransform.LookAt(positionToGoTo);
-            originTransform.eulerAngles = new Vector3(0, originTransform.eulerAngles.y, 0);
+            btTransform.LookAt(positionToGoTo);
+            btTransform.eulerAngles = new Vector3(0, btTransform.eulerAngles.y, 0);
         }
         else
         {

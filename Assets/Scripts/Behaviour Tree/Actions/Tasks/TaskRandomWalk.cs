@@ -16,13 +16,13 @@ public class TaskRandomWalk : Node
     private PersonBT personBT;
     float xDist, zDist;
 
-    public TaskRandomWalk(PersonBT parentTransform, Animator animatorIn, float speedIn)
+    public TaskRandomWalk(PersonBT btIn)
     {
-        personBT = parentTransform;
-        targetTransform = parentTransform.transform;
-        animator = animatorIn;
-        speed = speedIn;
-        S_BehaviourTreeUtility = parentTransform.transform.GetComponent<BehaviourTreeUtility>();
+        personBT = btIn;
+        targetTransform = personBT.transform;
+        animator = personBT.animator;
+        speed = personBT.walkSpeed;
+        S_BehaviourTreeUtility = personBT.transform.GetComponent<BehaviourTreeUtility>();
     }
 
     public override NODE_STATE Evaluate()
@@ -31,8 +31,6 @@ public class TaskRandomWalk : Node
         {
             return NODE_STATE.FAILURE; // Still in cooldown
         }
-
-        //Debug.Log("Walking random direction");
 
         //Generate position to go to
         if (destination == Vector3.zero)
@@ -47,7 +45,11 @@ public class TaskRandomWalk : Node
 
         if (xDist > 0.2f && zDist > 0.2f)
         {
-            animator.SetBool("isWalking", true);
+            if(!animator.GetBool("isWalking"))
+            {
+                personBT.ResetAnimations();
+                animator.SetBool("isWalking", true);
+            }
 
             targetTransform.position = Vector3.MoveTowards(
                 targetTransform.position,

@@ -4,15 +4,17 @@ using System.Collections.Generic;
 
 public class CheckTargetInRange : Node
 {
+    private PersonBT personBT;
     private Transform originPosition;
     private int peopleLayerMask = LayerMask.GetMask("People");
     private Animator animator;
     float visionRange;
-    public CheckTargetInRange(Transform transformIn, Animator animatorIn, float visionRangeIn)
+    public CheckTargetInRange(PersonBT bt)
     {
-        originPosition = transformIn;
-        animator = animatorIn;
-        visionRange = visionRangeIn;
+        personBT = bt;
+        originPosition = personBT.transform;
+        animator = personBT.animator;
+        visionRange = personBT.visionRange;
     }
 
     public override NODE_STATE Evaluate()

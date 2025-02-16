@@ -931,6 +931,7 @@ GameObject:
   - component: {fileID: 587179408459116187}
   - component: {fileID: 4590868740481530863}
   - component: {fileID: 8459365050913901807}
+  - component: {fileID: 1760964385575354878}
   m_Layer: 6
   m_Name: Person
   m_TagString: Untagged
@@ -1041,7 +1042,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   wayPoints: []
   animator: {fileID: 0}
-  speed: 3
+  walkSpeed: 2
   visionRange: 8
 --- !u!114 &4590868740481530863
 MonoBehaviour:
@@ -1067,6 +1068,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1487e12459c1d4644969b3b0412a090f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1760964385575354878
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2818350069776596432}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d989a6d1e02d0542a5deb11dfc77db7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  happiness: 1
+  socialness: 1
+  Energy: 1
+  attentionSpan: 1
+  bandwagonEffect: 1
+  Evilness: 1
+  shyness: 1
 --- !u!1 &3103189848066543394
 GameObject:
   m_ObjectHideFlags: 0
