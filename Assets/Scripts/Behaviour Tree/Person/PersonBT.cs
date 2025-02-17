@@ -1,12 +1,25 @@
 using BehaviourTree;
 using System.Collections.Generic;
 using UnityEngine;
+
+public enum Tasks{
+    None,
+    Happy,
+    Dance,
+    Walk,
+    Talk,
+    Meditate
+}
 public class PersonBT : BehaviourTree.Tree
 {
-    public UnityEngine.Transform[] wayPoints;
     public UnityEngine.Animator animator;
+
     public PersonBT nearestPlayer = null;
     public Transform forcedAttentionToPlayer = null;
+    public List<Transform> peopleNear = null;
+
+    public Tasks popularTask = Tasks.None;
+    public Tasks currentTask = Tasks.None;
 
     public float walkSpeed;
     public float visionRange;
@@ -16,9 +29,10 @@ public class PersonBT : BehaviourTree.Tree
         animator = GetComponent<Animator>();
     }
 
-    //new TaskPatrol(transform,wayPoints, animator, speed),
     protected override Node InitTree()
     {
+        peopleNear = new List<Transform>();
+
         Node root = new Selector(new List<Node>
         {
             //TRIGGERS (ACTIONS THAT MUST TAKE PRIORITY) ----------------------------
@@ -31,12 +45,16 @@ public class PersonBT : BehaviourTree.Tree
                 new TaskTalkToForcedAttentionNPC(this),
             }),
 
-            //Environment (ACTIONS BASED ON CURRENT ENVIRONMENT
-            //x
-            //y
-            //z
+            //Environment (ACTIONS BASED ON CURRENT ENVIRONMENT  --------------------------------------------
+            //new Sequence(new List<Node>
+            //{
+            //    //find props
+            //    //Find nearest person
+            //    //shoot them
+            //}),
 
-            //Traits (ACTIONS BASED ON MUST NEED TO DO TO SURVIVE)
+
+            //Traits (ACTIONS BASED ON MUST NEED TO DO TO SURVIVE)  --------------------------------------------
 
             //Socialness - talk to other people
             new Sequence(new List<Node>()
@@ -48,7 +66,7 @@ public class PersonBT : BehaviourTree.Tree
                 new TaskTalk(this),
             }),
 
-            //Low Energy - meditate
+            //Low Energy - meditate 
             new Sequence(new List<Node>()
             {
                 new CheckEnergy(this),
@@ -65,13 +83,15 @@ public class PersonBT : BehaviourTree.Tree
                 new TaskRunAwayFromClosestPerson(this),
             }),
 
-            //Other people (ACTIONS BASED ON OTHER PEOPLE)
-            
+            //Other people (ACTIONS BASED ON OTHER PEOPLE) --------------------------------------------
+            //new Sequence(new List<Node>()
+            //{
+            //    new FindPeopleNear(this),
+            //    new FindPopularTasks(this),
+            //    //new TaskDoMostPopularTask(this), //How do I do this without copying code?
+            //}),
 
-
-
-
-
+            //Random  --------------------------------------------
 
             //new TaskHappy(this),
             //new TaskMeditate(this),
@@ -80,12 +100,12 @@ public class PersonBT : BehaviourTree.Tree
             //new TaskLaugh(this),
 
 
-
             //new Sequence(new List<Node>()
             //{
             //    new CheckTargetInRange(this),
             //    new TaskGoToTarget(this),
             //}),
+            new TaskRandomWalk(this),
         }); return root;
 
     }
