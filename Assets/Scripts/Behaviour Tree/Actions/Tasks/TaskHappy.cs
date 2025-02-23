@@ -10,12 +10,14 @@ public class TaskHappy : Node
     private float maxWaitCounter = 2f;
     private float maxActionTime = 1.5f;
     private Animator animator;
+    private Traits S_Traits;
 
     public TaskHappy(PersonBT bt)
     {
         personBT = bt;
         btTransform = personBT.transform;
         animator = personBT.animator;
+        S_Traits = personBT.GetComponent<Traits>();
     }
     public override NODE_STATE Evaluate()
     {
@@ -36,6 +38,8 @@ public class TaskHappy : Node
                 personBT.ResetAnimations();
                 animator.SetBool("isHappy", true);
             }
+
+            S_Traits.IncreaseTrait(ref S_Traits.happiness);
         }
         else
         {

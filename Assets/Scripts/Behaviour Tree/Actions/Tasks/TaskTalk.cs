@@ -8,12 +8,14 @@ public class TaskTalk : Node
     private float maxActionTime = 3f;
     private float actionTimer = float.MaxValue;
     private Animator animator;
+    private Traits S_Traits;
 
     public TaskTalk(PersonBT bt)
     {
         personBT = bt;
         btTransform = personBT.transform;
         animator = personBT.animator;
+        S_Traits = personBT.GetComponent<Traits>();
     }
     public override NODE_STATE Evaluate()
     {
@@ -25,6 +27,9 @@ public class TaskTalk : Node
                 animator.SetBool("isTalking", true);
                 actionTimer = Time.time + maxActionTime;
             }
+
+            S_Traits.DecreaseTrait(ref S_Traits.energy);
+            S_Traits.IncreaseTrait(ref S_Traits.socialness);
         }
         else
         {

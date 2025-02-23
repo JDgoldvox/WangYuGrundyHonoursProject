@@ -19,9 +19,6 @@ public class Traits : MonoBehaviour
     [HideInInspector] public float MEDIUM;
     [HideInInspector] public float HIGH;
 
-    float timer = 0f;
-    float timerCoolDown = 1f;
-
     private void Start()
     {
         LOW = 0.1f;
@@ -41,28 +38,14 @@ public class Traits : MonoBehaviour
         shyness = Random.Range(0.0f, 1.0f);
         loudnessTolerance = Random.Range(0.0f, 1.0f);
     }
-
-    private void Update()
+    public void DecreaseTrait(ref float trait)
     {
-        if(timer <= 0f)
-        {
-            DecreaseTrait(socialness);
-            DecreaseTrait(energy);
-            DecreaseTrait(anger);
-
-            timer = timerCoolDown;
-        }
-    }
-
-    private void DecreaseTrait(float trait)
-    {
-        trait -= 1;
+        trait -= 0.01f * Time.deltaTime;
         trait = Mathf.Clamp(trait, 0.0f, 1.0f);
     }
-
-    private void IncreaseTrait(float trait)
+    public void IncreaseTrait(ref float trait)
     {
-        trait += 1;
+        trait += 0.01f * Time.deltaTime;
         trait = Mathf.Clamp(trait, 0.0f, 1.0f);
     }
 }

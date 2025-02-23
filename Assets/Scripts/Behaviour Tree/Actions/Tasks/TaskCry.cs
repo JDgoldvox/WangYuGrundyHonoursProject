@@ -10,12 +10,13 @@ public class TaskCry : Node
     private float maxWaitCounter = 2f;
     private float maxActionTime = 5f;
     private Animator animator;
-
+    private Traits S_Traits;
     public TaskCry(PersonBT bt)
     {
         personBT = bt;
         btTransform = personBT.transform;
         animator = personBT.animator;
+        S_Traits = personBT.GetComponent<Traits>();
     }
     public override NODE_STATE Evaluate()
     {
@@ -31,6 +32,8 @@ public class TaskCry : Node
                 personBT.ResetAnimations();
                 animator.SetBool("isCrying", true);
             }
+
+            S_Traits.DecreaseTrait(ref S_Traits.energy);
         }
         else
         {

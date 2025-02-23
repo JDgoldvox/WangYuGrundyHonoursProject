@@ -7,12 +7,14 @@ public class TaskMeditate : Node
     private PersonBT personBT;
 
     private Animator animator;
+    private Traits S_Traits;
 
     public TaskMeditate(PersonBT bt)
     {
         personBT = bt;
         btTransform = personBT.transform;
         animator = personBT.animator;
+        S_Traits = personBT.GetComponent<Traits>();
     }
     public override NODE_STATE Evaluate()
     {
@@ -21,6 +23,8 @@ public class TaskMeditate : Node
             personBT.ResetAnimations();
             animator.SetBool("isMeditating", true);
         }
+
+        S_Traits.IncreaseTrait(ref S_Traits.energy);
 
         state = NODE_STATE.RUNNING;
         return state;

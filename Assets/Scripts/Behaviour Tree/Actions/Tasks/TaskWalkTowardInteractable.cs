@@ -5,10 +5,12 @@ using UnityEngine.UIElements;
 public class TaskWalkTowardInteractable : Node
 {
     PersonBT personBT;
+    private Traits S_Traits;
 
     public TaskWalkTowardInteractable(PersonBT bt)
     {
         personBT = bt;
+        S_Traits = personBT.GetComponent<Traits>();
     }
 
     public override NODE_STATE Evaluate()
@@ -20,6 +22,8 @@ public class TaskWalkTowardInteractable : Node
                 personBT.interactablesNear[0].transform.position,
                 personBT.walkSpeed * Time.deltaTime
             );
+
+            S_Traits.DecreaseTrait(ref S_Traits.energy);
 
             if (Vector3.Distance(personBT.interactablesNear[0].transform.position , personBT.transform.position) < 0.5)
             {

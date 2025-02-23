@@ -12,6 +12,7 @@ public class TaskGoToNearestPerson : Node
     private Transform btTransform;
     private float speed;
     private Animator animator;
+    private Traits S_Traits;
 
     public TaskGoToNearestPerson(PersonBT bt)
     {
@@ -19,6 +20,7 @@ public class TaskGoToNearestPerson : Node
         btTransform = personBT.transform;
         speed = personBT.walkSpeed;
         animator = personBT.animator;
+        S_Traits = personBT.GetComponent<Traits>();
     }
 
     public override NODE_STATE Evaluate()
@@ -48,6 +50,8 @@ public class TaskGoToNearestPerson : Node
 
             btTransform.LookAt(positionToGoTo);
             btTransform.eulerAngles = new Vector3(0, btTransform.eulerAngles.y, 0);
+
+            S_Traits.DecreaseTrait(ref S_Traits.energy);
         }
         else
         {

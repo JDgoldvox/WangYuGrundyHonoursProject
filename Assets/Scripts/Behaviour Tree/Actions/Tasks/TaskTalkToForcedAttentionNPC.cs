@@ -6,12 +6,14 @@ public class TaskTalkToForcedAttentionNPC : Node
     private Transform btTransform;
     private PersonBT personBT;
     private Animator animator;
+    private Traits S_Traits;
 
     public TaskTalkToForcedAttentionNPC(PersonBT bt)
     {
         personBT = bt;
         btTransform = personBT.transform;
         animator = personBT.animator;
+        S_Traits = personBT.GetComponent<Traits>();
     }
 
     public override NODE_STATE Evaluate()
@@ -21,6 +23,8 @@ public class TaskTalkToForcedAttentionNPC : Node
             personBT.ResetAnimations();
             animator.SetBool("isTalking", true);
         }
+
+        S_Traits.DecreaseTrait(ref S_Traits.energy);
 
         state = NODE_STATE.RUNNING;
         return state;

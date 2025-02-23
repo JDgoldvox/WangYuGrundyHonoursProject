@@ -16,6 +16,8 @@ public class TaskRandomWalk : Node
     private PersonBT personBT;
     float xDist, zDist;
 
+    private Traits S_Traits;
+
     public TaskRandomWalk(PersonBT btIn)
     {
         personBT = btIn;
@@ -23,6 +25,7 @@ public class TaskRandomWalk : Node
         animator = personBT.animator;
         speed = personBT.walkSpeed;
         S_BehaviourTreeUtility = personBT.transform.GetComponent<BehaviourTreeUtility>();
+        S_Traits = personBT.GetComponent<Traits>();
     }
 
     public override NODE_STATE Evaluate()
@@ -60,6 +63,8 @@ public class TaskRandomWalk : Node
             targetTransform.LookAt(destination);
             xDist = Mathf.Abs(targetTransform.position.x - destination.x);
             zDist = Mathf.Abs(targetTransform.position.z - destination.z);
+
+            S_Traits.DecreaseTrait(ref S_Traits.energy);
         }
         else
         {

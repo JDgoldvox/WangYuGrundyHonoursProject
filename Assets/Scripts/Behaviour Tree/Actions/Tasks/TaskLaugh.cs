@@ -10,12 +10,14 @@ public class TaskLaugh : Node
     private float maxWaitCounter = 2f;
     private float maxActionTime = 3f;
     private Animator animator;
+    private Traits S_Traits;
 
     public TaskLaugh(PersonBT bt)
     {
         personBT = bt;
         btTransform = personBT.transform;
         animator = personBT.animator;
+        S_Traits = personBT.GetComponent<Traits>();
     }
     public override NODE_STATE Evaluate()
     {
@@ -31,6 +33,8 @@ public class TaskLaugh : Node
                 personBT.ResetAnimations();
                 animator.SetBool("isLaughing", true);
             }
+
+            S_Traits.IncreaseTrait(ref S_Traits.happiness);
         }
         else
         {
