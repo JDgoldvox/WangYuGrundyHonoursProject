@@ -37,7 +37,7 @@ public class Actions : MonoBehaviour
         {
             inputActionMap = new GameInputActionMap();
         }
-        interactableLayerMask = LayerMask.GetMask("interactable");
+        interactableLayerMask = LayerMask.GetMask("Plane");
     }
 
     private void OnEnable()

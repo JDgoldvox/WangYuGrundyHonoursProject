@@ -17,6 +17,7 @@ public class PersonBT : BehaviourTree.Tree
     public PersonBT nearestPlayer = null;
     public Transform forcedAttentionToPlayer = null;
     public List<Transform> peopleNear = null;
+    public List<Transform> interactablesNear = null;
 
     public Tasks popularTask = Tasks.None;
     public Tasks currentTask = Tasks.None;
@@ -32,6 +33,7 @@ public class PersonBT : BehaviourTree.Tree
     protected override Node InitTree()
     {
         peopleNear = new List<Transform>();
+        interactablesNear = new List<Transform>();
 
         Node root = new Selector(new List<Node>
         {
@@ -46,12 +48,13 @@ public class PersonBT : BehaviourTree.Tree
             }),
 
             //Environment (ACTIONS BASED ON CURRENT ENVIRONMENT  --------------------------------------------
-            //new Sequence(new List<Node>
-            //{
-            //    //find props
-            //    //Find nearest person
-            //    //shoot them
-            //}),
+            new Sequence(new List<Node>
+            {
+                //find props
+                new FindInteractablesNear(this),
+                new TaskWalkTowardInteractable(this),
+                new TaskPickGunUp(this),
+            }),
 
 
             //Traits (ACTIONS BASED ON MUST NEED TO DO TO SURVIVE)  --------------------------------------------
@@ -106,7 +109,9 @@ public class PersonBT : BehaviourTree.Tree
             //    new TaskGoToTarget(this),
             //}),
             new TaskRandomWalk(this),
-        }); return root;
+        }); 
+        
+        return root;
 
     }
 
