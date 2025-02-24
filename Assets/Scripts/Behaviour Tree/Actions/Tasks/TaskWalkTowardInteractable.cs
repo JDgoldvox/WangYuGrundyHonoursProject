@@ -15,6 +15,12 @@ public class TaskWalkTowardInteractable : Node
 
     public override NODE_STATE Evaluate()
     {
+        if (personBT.interactablesNear[0] == null)
+        {
+            state = NODE_STATE.FAILURE;
+            return state;
+        }
+
         if (personBT.interactablesNear.Count != 0)
         {
             personBT.transform.position = Vector3.MoveTowards(

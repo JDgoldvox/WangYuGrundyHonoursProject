@@ -16,7 +16,7 @@ namespace BehaviourTree
         protected NODE_STATE state;
 
         public Node parent;
-        protected List<Node> children = new List<Node>();
+        public List<Node> children = new List<Node>();
         private Dictionary<string, object> data = new Dictionary<string, object>();
 
         public Node()

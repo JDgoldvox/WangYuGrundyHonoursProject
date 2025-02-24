@@ -28,9 +28,16 @@ public class FindInteractablesNear : Node
         //DO NOT COUNT ITSELF, SO MORE THAN 1 OBJ
         if (colliders.Length > 0)
         {
-            //personBT.interactablesNear.Clear();
-
             List<Transform> otherTargets = new List<Transform>();
+
+            if (personBT.interactablesNear == null)
+            {
+                personBT.interactablesNear = new List<Transform>();
+            }
+            else
+            {
+                personBT.interactablesNear.Clear(); 
+            }
 
             foreach (Collider collider in colliders)
             {

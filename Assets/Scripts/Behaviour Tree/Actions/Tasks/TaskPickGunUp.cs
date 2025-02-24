@@ -19,13 +19,16 @@ public class TaskPickGunUp : Node
     }
     public override NODE_STATE Evaluate()
     {
-        if (personBT.interactablesNear[0] != null)
+        if (personBT.interactablesNear[0] != null)  
         {
-            personBT.interactablesNear[0].gameObject.SetActive(false);
+            UnityEngine.GameObject.Destroy(personBT.interactablesNear[0].transform.gameObject);
             personBT.interactablesNear.Remove(personBT.interactablesNear[0]);
+
+            state = NODE_STATE.SUCCESS;
+            return state;
         }
 
-        state = NODE_STATE.RUNNING;
+        state = NODE_STATE.FAILURE;
         return state;
     }
 }
