@@ -19,15 +19,16 @@ public class FindNearestPlayer : Node
     public override NODE_STATE Evaluate()
     {
         //Create a cool down
-        if(personBT.nearestPlayer != null)
+
+        //if timer not reached, do nothing, as we already have a nearest player
+        if (timer <= Time.time)
         {
-            //if timer not reached, do nothing, as we already have a nearest player
-            if(timer >= Time.time)
-            {
-                state = NODE_STATE.SUCCESS;
-                return state;
-            }
+            state = NODE_STATE.FAILURE;
+            return state;
         }
+
+        personBT.nearestPlayer = null;
+
 
         Collider[] colliders = Physics.OverlapSphere(
             originTransform.position,

@@ -73,8 +73,6 @@ public class PersonBT : BehaviourTree.Tree
             new Sequence(new List<Node>()
             {
                 new CheckEnergy(this),
-                new FindNearestPlayer(this),
-                new TaskRunAwayFromClosestPerson(this),
                 new TaskMeditate(this),
             }),
 

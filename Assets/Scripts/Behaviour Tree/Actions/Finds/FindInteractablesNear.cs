@@ -18,16 +18,6 @@ public class FindInteractablesNear : Node
 
     public override NODE_STATE Evaluate()
     {
-        ////Create a cool down
-        //if (personBT.interactablesNear != null)
-        //{
-        //    //if timer not reached, do nothing, as we already have a nearest player
-        //    if (timer >= Time.time)
-        //    {
-        //        state = NODE_STATE.SUCCESS;
-        //        return state;
-        //    }
-        //}
 
         Collider[] colliders = Physics.OverlapSphere(
             originTransform.position,
@@ -38,6 +28,8 @@ public class FindInteractablesNear : Node
         //DO NOT COUNT ITSELF, SO MORE THAN 1 OBJ
         if (colliders.Length > 0)
         {
+            //personBT.interactablesNear.Clear();
+
             List<Transform> otherTargets = new List<Transform>();
 
             foreach (Collider collider in colliders)

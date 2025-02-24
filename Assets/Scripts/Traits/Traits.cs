@@ -21,9 +21,9 @@ public class Traits : MonoBehaviour
 
     private void Start()
     {
-        LOW = 0.1f;
+        LOW = 0.2f;
         MEDIUM = 0.5f;
-        HIGH = 0.9f;
+        HIGH = 0.8f;
 
         //dynamic
         happiness = Random.Range(0.0f, 1.0f);

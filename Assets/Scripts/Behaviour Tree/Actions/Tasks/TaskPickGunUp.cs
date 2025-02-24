@@ -22,6 +22,7 @@ public class TaskPickGunUp : Node
         if (personBT.interactablesNear[0] != null)
         {
             personBT.interactablesNear[0].gameObject.SetActive(false);
+            personBT.interactablesNear.Remove(personBT.interactablesNear[0]);
         }
 
         state = NODE_STATE.RUNNING;
