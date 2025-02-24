@@ -39,6 +39,17 @@ public class TreeRandomiser : MonoBehaviour
         }
     }
 
+    public void NextGeneration()
+    {
+        //Cross overs (split the tree down the middle)
+
+
+
+        //Mutations
+
+
+    }
+
     private void SetPeopleList()
     {
         peopleList = new List<Transform>();
@@ -48,4 +59,5 @@ public class TreeRandomiser : MonoBehaviour
             peopleList.Add(t);
         }
     }
+
 }
