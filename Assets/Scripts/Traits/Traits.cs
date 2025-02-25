@@ -48,4 +48,10 @@ public class Traits : MonoBehaviour
         trait += 0.01f * Time.deltaTime;
         trait = Mathf.Clamp(trait, 0.0f, 1.0f);
     }
+
+    public float ReturnFitnessFunction()
+    {
+        return (happiness + socialness + anger) / 3;
+    }
+
 }
