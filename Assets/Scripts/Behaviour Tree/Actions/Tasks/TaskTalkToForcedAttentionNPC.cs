@@ -25,8 +25,9 @@ public class TaskTalkToForcedAttentionNPC : Node
         }
 
         S_Traits.DecreaseTrait(ref S_Traits.energy);
+        S_Traits.DecreaseTrait(ref S_Traits.anger);
 
-        state = NODE_STATE.RUNNING;
+        state = NODE_STATE.SUCCESS;
         return state;
     }
 }

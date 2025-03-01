@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    [SerializeField] private GameObject personPrefab; 
     [SerializeField] private Transform PeopleParent;
     private List<Transform> peopleList;
 
@@ -140,6 +141,9 @@ public class GameManager : MonoBehaviour
 
             //create new person with these notes
             Debug.Log("MAKE NEW HUMAN");
+
+            //FINISH THIS FUNCTION
+            CreatePersonWithChildren();
         }
     }
 
@@ -183,5 +187,8 @@ public class GameManager : MonoBehaviour
         return newNodes;
     }
 
-
+    private void CreatePersonWithChildren()
+    {
+        //personPrefab
+    }
 }

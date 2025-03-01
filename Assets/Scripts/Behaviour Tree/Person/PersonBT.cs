@@ -23,6 +23,7 @@ public class PersonBT : BehaviourTree.Tree
     public Tasks currentTask = Tasks.None;
 
     public float walkSpeed;
+    public float runSpeed;
     public float visionRange;
 
     private void Awake()
@@ -47,34 +48,33 @@ public class PersonBT : BehaviourTree.Tree
                 new TaskTalkToForcedAttentionNPC(this),
             }),
 
-            //Environment (ACTIONS BASED ON CURRENT ENVIRONMENT  --------------------------------------------
-            new Sequence(new List<Node>
-            {
-                //find props
-                new FindInteractablesNear(this),
-                new TaskWalkTowardInteractable(this),
-                new TaskPickGunUp(this),
-            }),
+            ////Environment (ACTIONS BASED ON CURRENT ENVIRONMENT  --------------------------------------------
+            //new Sequence(new List<Node>
+            //{
+            //    //find props
+            //    new FindInteractablesNear(this),
+            //    new TaskWalkTowardInteractable(this),
+            //    new TaskPickGunUp(this),
+            //}),
 
+            ////Traits (ACTIONS BASED ON MUST NEED TO DO TO SURVIVE)  --------------------------------------------
 
-            //Traits (ACTIONS BASED ON MUST NEED TO DO TO SURVIVE)  --------------------------------------------
+            ////Low Energy - meditate 
+            //new Sequence(new List<Node>()
+            //{
+            //    new CheckEnergy(this),
+            //    new TaskMeditate(this),
+            //}),
 
-            //Socialness - talk to other people
-            new Sequence(new List<Node>()
-            {
-                new CheckSocialness(this),
-                new FindNearestPlayer(this),
-                new TaskGoToNearestPerson(this),
-                new SetForceAttentionToNPC(this),
-                new TaskTalk(this),
-            }),
-
-            //Low Energy - meditate 
-            new Sequence(new List<Node>()
-            {
-                new CheckEnergy(this),
-                new TaskMeditate(this),
-            }),
+            ////Socialness - talk to other people
+            //new Sequence(new List<Node>()
+            //{
+            //    new CheckSocialness(this),
+            //    new FindNearestPlayer(this),
+            //    new TaskGoToNearestPerson(this),
+            //    new SetForceAttentionToNPC(this),
+            //    new TaskTalk(this),
+            //}),
 
             //Anger - run away
             new Sequence(new List<Node>()

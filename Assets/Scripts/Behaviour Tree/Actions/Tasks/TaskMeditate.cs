@@ -26,7 +26,7 @@ public class TaskMeditate : Node
 
         S_Traits.IncreaseTrait(ref S_Traits.energy);
 
-        state = NODE_STATE.RUNNING;
+        state = NODE_STATE.SUCCESS;
         return state;
     }
 

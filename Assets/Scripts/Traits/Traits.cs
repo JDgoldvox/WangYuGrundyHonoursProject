@@ -1,14 +1,15 @@
+using System;
 using UnityEngine;
 
 public class Traits : MonoBehaviour
 {
-    //dynamic traits
+    [Header("Dynamic traits")]
     public float happiness = 1f; //amount of happiness doing things / being annoyed / tiredness / loudness
     public float socialness = 1f; //talking requirement (0.5 is neutral)
     public float energy = 1f; //speed of which to do activities
     public float anger = 1f; //anger increases when people are being too loud or annoying
 
-    //static traits
+    [Header("Static traits")]
     public float attentionSpan = 1f; //speed multiplier for actions
     public float bandwagonEffect = 1f; //chance of joining a group action
     public float Evilness = 1f; //Chance of doing something annoying for other people
@@ -26,26 +27,45 @@ public class Traits : MonoBehaviour
         HIGH = 0.8f;
 
         //dynamic
-        happiness = Random.Range(0.0f, 1.0f);
-        socialness = Random.Range(0.0f, 0.2f);
-        energy = Random.Range(0.0f, 1.0f);
-        anger = Random.Range(0.0f, 1.0f);
+        happiness = UnityEngine.Random.Range(0.0f, 1.0f);
+        socialness = UnityEngine.Random.Range(0.0f, 0.2f);
+        energy = UnityEngine.Random.Range(0.0f, 1.0f);
+        anger = UnityEngine.Random.Range(0.0f, 1.0f);
 
         //static
-        attentionSpan = Random.Range(0.0f, 1.0f);
-        bandwagonEffect = Random.Range(0.0f, 1.0f);
-        Evilness = Random.Range(0.0f, 1.0f);
-        shyness = Random.Range(0.0f, 1.0f);
-        loudnessTolerance = Random.Range(0.0f, 1.0f);
+        attentionSpan = UnityEngine.Random.Range(0.0f, 1.0f);
+        bandwagonEffect = UnityEngine.Random.Range(0.0f, 1.0f);
+        Evilness = UnityEngine.Random.Range(0.0f, 1.0f);
+        shyness = UnityEngine.Random.Range(0.0f, 1.0f);
+        loudnessTolerance = UnityEngine.Random.Range(0.0f, 1.0f);
     }
+
+    private void Update()
+    {
+        DecreaseTrait(ref socialness);
+        DecreaseTraitAtRate(ref anger, 0.01f);
+    }
+
     public void DecreaseTrait(ref float trait)
     {
-        trait -= 0.01f * Time.deltaTime;
+        trait -= 0.03f * Time.deltaTime;
         trait = Mathf.Clamp(trait, 0.0f, 1.0f);
     }
     public void IncreaseTrait(ref float trait)
     {
-        trait += 0.01f * Time.deltaTime;
+        trait += 0.03f * Time.deltaTime;
+        trait = Mathf.Clamp(trait, 0.0f, 1.0f);
+    }
+
+    public void DecreaseTraitAtRate(ref float trait, float rate)
+    {
+        trait -= rate * Time.deltaTime;
+        trait = Mathf.Clamp(trait, 0.0f, 1.0f);
+    }
+
+    public void IncreaseTraitAtRate(ref float trait, float rate)
+    {
+        trait += rate * Time.deltaTime;
         trait = Mathf.Clamp(trait, 0.0f, 1.0f);
     }
 
@@ -53,5 +73,4 @@ public class Traits : MonoBehaviour
     {
         return (happiness + socialness + anger) / 3;
     }
-
 }

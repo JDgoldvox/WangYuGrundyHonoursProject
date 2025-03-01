@@ -1040,9 +1040,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07d986e4facf3a840a0b582be341bb02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wayPoints: []
   animator: {fileID: 0}
+  nearestPlayer: {fileID: 0}
+  forcedAttentionToPlayer: {fileID: 0}
+  peopleNear: []
+  interactablesNear: []
+  popularTask: 0
+  currentTask: 0
   walkSpeed: 2
+  runSpeed: 4
   visionRange: 8
 --- !u!114 &4590868740481530863
 MonoBehaviour:
@@ -1082,11 +1088,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   happiness: 1
   socialness: 1
-  Energy: 1
+  energy: 1
+  anger: 1
   attentionSpan: 1
   bandwagonEffect: 1
   Evilness: 1
   shyness: 1
+  loudnessTolerance: 1
+  LOW: 0
+  MEDIUM: 0
+  HIGH: 0
 --- !u!1 &3103189848066543394
 GameObject:
   m_ObjectHideFlags: 0

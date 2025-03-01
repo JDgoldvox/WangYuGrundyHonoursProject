@@ -16,7 +16,7 @@ public class TaskRunAwayFromClosestPerson : Node
     {
         personBT = bt;
         btTransform = personBT.transform;
-        speed = personBT.walkSpeed;
+        speed = personBT.runSpeed;
         animator = personBT.animator;
         S_Traits = personBT.GetComponent<Traits>();
     }
@@ -34,7 +34,6 @@ public class TaskRunAwayFromClosestPerson : Node
         Vector3 positionToGoTo = btTransform.position + directionAway * (distance + 3);
 
         //subtract their position
-        //Debug.Log("Current Position: " + btTransform.position + " other person pos: " + personBT.nearestPlayer.transform.position + " going to: " + positionToGoTo);
         if (Vector3.Distance(positionToGoTo, btTransform.position) > 0.5f)
         {
             if (!animator.GetBool("isWalking"))
