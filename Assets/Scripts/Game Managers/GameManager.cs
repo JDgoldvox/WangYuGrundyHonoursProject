@@ -73,8 +73,6 @@ public class GameManager : MonoBehaviour
     //filters the list by traits
     private void FilterList()
     {
-        //ReturnFitnessFunction
-
         List<Transform> newPeopleList = new List<Transform>();
         List<Transform> deleteList = new List<Transform>();
 
@@ -139,17 +137,59 @@ public class GameManager : MonoBehaviour
                 newNodes = Crossover(i, 0);
             }
 
-            //create new person with these notes
-            Debug.Log("MAKE NEW HUMAN");
-
-            //FINISH THIS FUNCTION
-            CreatePersonWithChildren();
+            //Create new person
+            CreatePersonWithChildren(newNodes);
         }
     }
 
     private void PruneOrMultiplyList()
     {
+        Debug.Log("child count: " + PeopleParent.childCount);
 
+        //prune
+        if(PeopleParent.childCount > populationSize) 
+        {
+            List<GameObject> removeList = new List<GameObject>();
+
+            //remove children randomly
+            int populationToRemove = PeopleParent.childCount - populationSize;
+
+            Debug.Log("Count too high, need to remove: " + populationToRemove);
+
+            for (int i = 0; i < populationToRemove; i++)
+            {
+                int randomChildNum = Random.Range(0, PeopleParent.childCount);
+                removeList.Add(PeopleParent.GetChild(randomChildNum).gameObject);
+            }
+
+            //delete these people
+            foreach(var v in removeList)
+            {
+                Destroy(v);
+            }
+        }
+        else if(PeopleParent.childCount < populationSize) //mulitiply
+        {
+            List<GameObject> increaseList = new List<GameObject>();
+
+            //increase children randomly
+            int populationToMake = populationSize - PeopleParent.childCount;
+
+            Debug.Log("Count too low, need to remove: " + populationToMake);
+
+            for (int i = 0; i < populationToMake; i++)
+            {
+                int randomChildNum = Random.Range(0, PeopleParent.childCount);
+                Debug.Log(randomChildNum);
+                increaseList.Add(PeopleParent.GetChild(randomChildNum).gameObject);
+            }
+
+            //delete these people
+            foreach (var v in increaseList)
+            {
+                Instantiate(v, PeopleParent);
+            }
+        }
     }
     
     /// <summary>
@@ -187,8 +227,25 @@ public class GameManager : MonoBehaviour
         return newNodes;
     }
 
-    private void CreatePersonWithChildren()
+    private void CreatePersonWithChildren(List<Node> newNodes)
     {
-        //personPrefab
+        GameObject p = Instantiate(personPrefab, PeopleParent);
+
+        PersonBT script = p.GetComponent<PersonBT>();
+
+        // Ensure the tree is initialized
+        if (script.root == null)
+        {
+            Debug.LogWarning("Root was null, forcing initialization.");
+            script.root = script.InitTree();
+        }
+
+        if (script.root == null)
+        {
+            Debug.LogError("Root is still null after initialization!");
+            return;
+        }
+
+        script.root.children = newNodes;
     }
 }

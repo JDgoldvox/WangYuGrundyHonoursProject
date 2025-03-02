@@ -31,7 +31,7 @@ public class PersonBT : BehaviourTree.Tree
         animator = GetComponent<Animator>();
     }
 
-    protected override Node InitTree()
+    public override Node InitTree()
     {
         peopleNear = new List<Transform>();
         interactablesNear = new List<Transform>();

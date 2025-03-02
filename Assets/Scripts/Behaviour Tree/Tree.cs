@@ -21,7 +21,7 @@ namespace BehaviourTree
             }
         }
 
-        protected abstract Node InitTree();
+        public abstract Node InitTree();
     
     }
 }
