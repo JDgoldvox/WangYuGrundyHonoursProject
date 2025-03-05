@@ -1153,7 +1153,7 @@ MonoBehaviour:
   probabilityOfFilter: 1
   probabilityOfCrossOver: 0
   fitnessThresholdToCull: 0
-  populationSize: 50
+  populationSize: 97
 --- !u!114 &938690364
 MonoBehaviour:
   m_ObjectHideFlags: 0

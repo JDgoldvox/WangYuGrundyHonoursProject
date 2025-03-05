@@ -7,7 +7,7 @@ public class FindNearestPlayer : Node
     private PersonBT personBT;
     private Transform originTransform;
     private int peopleLayerMask = LayerMask.GetMask("People");
-    private float timer = float.MaxValue;
+    private float timer = 0;
     private float cooldown = 0.5f;
 
     public FindNearestPlayer(PersonBT bt)
@@ -21,14 +21,25 @@ public class FindNearestPlayer : Node
         //Create a cool down
 
         //if timer not reached, do nothing, as we already have a nearest player
-        if (timer <= Time.time)
+        if (Time.time >= timer || personBT.nearestPlayer == null)
         {
-            state = NODE_STATE.FAILURE;
-            return state;
+            timer = Time.time + cooldown;
+        }
+        else
+        {
+            if(personBT.nearestPlayer != null)
+            {
+                state = NODE_STATE.SUCCESS;
+                return state;
+            }
+            else
+            {
+                state = NODE_STATE.FAILURE;
+                return state;
+            }
         }
 
         personBT.nearestPlayer = null;
-
 
         Collider[] colliders = Physics.OverlapSphere(
             originTransform.position,
@@ -58,9 +69,6 @@ public class FindNearestPlayer : Node
             }
 
             personBT.nearestPlayer = closestPerson;
-
-            //update timer
-            timer = Time.time + cooldown;
 
             state = NODE_STATE.SUCCESS;
             return state;

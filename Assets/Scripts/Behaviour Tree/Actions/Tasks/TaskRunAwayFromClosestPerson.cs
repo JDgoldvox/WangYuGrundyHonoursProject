@@ -25,7 +25,7 @@ public class TaskRunAwayFromClosestPerson : Node
     {
         if (personBT.nearestPlayer == null)
         {
-            return NODE_STATE.SUCCESS;
+            return NODE_STATE.FAILURE;
         }
 
         Vector3 playerPosition = personBT.nearestPlayer.transform.position;

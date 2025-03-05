@@ -49,32 +49,32 @@ public class PersonBT : BehaviourTree.Tree
             }),
 
             ////Environment (ACTIONS BASED ON CURRENT ENVIRONMENT  --------------------------------------------
-            //new Sequence(new List<Node>
-            //{
-            //    //find props
-            //    new FindInteractablesNear(this),
-            //    new TaskWalkTowardInteractable(this),
-            //    new TaskPickGunUp(this),
-            //}),
+            new Sequence(new List<Node>
+            {
+                //find props
+                new FindInteractablesNear(this),
+                new TaskWalkTowardInteractable(this),
+                new TaskPickGunUp(this),
+            }),
 
             ////Traits (ACTIONS BASED ON MUST NEED TO DO TO SURVIVE)  --------------------------------------------
 
-            ////Low Energy - meditate 
-            //new Sequence(new List<Node>()
-            //{
-            //    new CheckEnergy(this),
-            //    new TaskMeditate(this),
-            //}),
+            //Low Energy - meditate 
+            new Sequence(new List<Node>()
+            {
+                new CheckEnergy(this),
+                new TaskMeditate(this),
+            }),
 
             ////Socialness - talk to other people
-            //new Sequence(new List<Node>()
-            //{
-            //    new CheckSocialness(this),
-            //    new FindNearestPlayer(this),
-            //    new TaskGoToNearestPerson(this),
-            //    new SetForceAttentionToNPC(this),
-            //    new TaskTalk(this),
-            //}),
+            new Sequence(new List<Node>()
+            {
+                new CheckSocialness(this),
+                new FindNearestPlayer(this),
+                new TaskGoToNearestPerson(this),
+                new SetForceAttentionToNPC(this),
+                new TaskTalk(this),
+            }),
 
             //Anger - run away
             new Sequence(new List<Node>()
@@ -101,11 +101,12 @@ public class PersonBT : BehaviourTree.Tree
             //new TaskLaugh(this),
 
 
-            //new Sequence(new List<Node>()
-            //{
-            //    new CheckTargetInRange(this),
-            //    new TaskGoToTarget(this),
-            //}),
+            new Sequence(new List<Node>()
+            {
+                new CheckTargetInRange(this),
+                new TaskGoToTarget(this),
+            }),
+
             new TaskRandomWalk(this),
         }); 
         

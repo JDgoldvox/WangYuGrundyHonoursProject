@@ -1,5 +1,6 @@
 using BehaviourTree;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -12,7 +13,13 @@ public class GameManager : MonoBehaviour
     [Range(0f, 1f)][SerializeField] private float probabilityOfFilter;
     [Range(0f, 1f)][SerializeField] private float probabilityOfCrossOver;
     [Range(0f, 1f)][SerializeField] private float fitnessThresholdToCull;
-    [Range(0, 50)][SerializeField] private int populationSize;
+    [Range(0, 200)][SerializeField] private int populationSize;
+
+    private float maxX = 100;
+    private float minX = -100;
+    private float maxY = 2;
+    private float maxZ = 100;
+    private float minZ = -100;
 
     /// <summary>
     /// Randomises the trees intially
@@ -144,8 +151,6 @@ public class GameManager : MonoBehaviour
 
     private void PruneOrMultiplyList()
     {
-        Debug.Log("child count: " + PeopleParent.childCount);
-
         //prune
         if(PeopleParent.childCount > populationSize) 
         {
@@ -153,8 +158,6 @@ public class GameManager : MonoBehaviour
 
             //remove children randomly
             int populationToRemove = PeopleParent.childCount - populationSize;
-
-            Debug.Log("Count too high, need to remove: " + populationToRemove);
 
             for (int i = 0; i < populationToRemove; i++)
             {
@@ -175,12 +178,9 @@ public class GameManager : MonoBehaviour
             //increase children randomly
             int populationToMake = populationSize - PeopleParent.childCount;
 
-            Debug.Log("Count too low, need to remove: " + populationToMake);
-
             for (int i = 0; i < populationToMake; i++)
             {
                 int randomChildNum = Random.Range(0, PeopleParent.childCount);
-                Debug.Log(randomChildNum);
                 increaseList.Add(PeopleParent.GetChild(randomChildNum).gameObject);
             }
 
@@ -230,6 +230,11 @@ public class GameManager : MonoBehaviour
     private void CreatePersonWithChildren(List<Node> newNodes)
     {
         GameObject p = Instantiate(personPrefab, PeopleParent);
+
+        float x = Random.Range(minX, maxX);
+        float z = Random.Range(minZ, maxZ);
+
+        p.transform.position = new Vector3(x, maxY, z);
 
         PersonBT script = p.GetComponent<PersonBT>();
 

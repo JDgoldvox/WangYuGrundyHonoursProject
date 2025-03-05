@@ -6,8 +6,8 @@ using System.IO;
 public class Calculations : MonoBehaviour
 {
     [SerializeField] private Transform peopleParent;
-    List<float> averageMeanScoreHistory;
-    List<float> averageMedianScoreHistory;
+    private List<float> averageMeanScoreHistory;
+    private List<float> averageMedianScoreHistory;
 
     void Start()
     {
