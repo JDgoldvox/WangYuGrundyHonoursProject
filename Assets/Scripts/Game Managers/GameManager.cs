@@ -187,7 +187,12 @@ public class GameManager : MonoBehaviour
             //delete these people
             foreach (var v in increaseList)
             {
-                Instantiate(v, PeopleParent);
+                float x = Random.Range(minX, maxX);
+                float z = Random.Range(minZ, maxZ);
+
+                Vector3 pos = new Vector3(x, maxY, z);
+
+                Instantiate(v, pos, Quaternion.identity, PeopleParent);
             }
         }
     }
@@ -229,12 +234,12 @@ public class GameManager : MonoBehaviour
 
     private void CreatePersonWithChildren(List<Node> newNodes)
     {
-        GameObject p = Instantiate(personPrefab, PeopleParent);
-
         float x = Random.Range(minX, maxX);
         float z = Random.Range(minZ, maxZ);
 
-        p.transform.position = new Vector3(x, maxY, z);
+        Vector3 pos = new Vector3(x, maxY, z);
+
+        GameObject p = Instantiate(personPrefab, pos, Quaternion.identity, PeopleParent);
 
         PersonBT script = p.GetComponent<PersonBT>();
 

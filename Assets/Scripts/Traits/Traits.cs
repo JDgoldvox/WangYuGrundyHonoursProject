@@ -71,6 +71,19 @@ public class Traits : MonoBehaviour
 
     public float ReturnFitnessFunction()
     {
-        return (happiness + socialness + anger) / 3;
+        //1/anger
+
+        float tempAnger = 0;
+
+        if(anger == 0)
+        {
+            tempAnger = 0.01f;
+        }
+        else
+        {
+            tempAnger = anger;
+        }
+
+            return (happiness + socialness + 1 / tempAnger) / 3;
     }
 }

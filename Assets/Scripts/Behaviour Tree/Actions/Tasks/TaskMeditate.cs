@@ -24,7 +24,7 @@ public class TaskMeditate : Node
             animator.SetBool("isMeditating", true);
         }
 
-        S_Traits.IncreaseTraitAtRate(ref S_Traits.energy, 10);
+        S_Traits.IncreaseTraitAtRate(ref S_Traits.energy, 0.1f);
 
         state = NODE_STATE.SUCCESS;
         return state;
