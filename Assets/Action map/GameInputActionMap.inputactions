@@ -13,6 +13,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "CheckInfo",
+                    "type": "Button",
+                    "id": "8e19f37d-9094-40e1-aa52-ba1dde35b0fa",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -24,6 +33,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "PlacePerson",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "4b578318-fe74-4b54-abf1-44a42f269262",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "CheckInfo",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
@@ -127,7 +147,7 @@
                 {
                     "name": "",
                     "id": "3b817a7d-7d32-4a67-a5d1-a8770083f6ff",
-                    "path": "<Mouse>/rightButton",
+                    "path": "<Keyboard>/space",
                     "interactions": "",
                     "processors": "",
                     "groups": "",

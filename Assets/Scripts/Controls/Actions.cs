@@ -1,20 +1,20 @@
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.Controls;
-using static UnityEngine.Timeline.AnimationPlayableAsset;
+
 public class Actions : MonoBehaviour
 {
     public static GameInputActionMap inputActionMap;
     InputAction placePerson;
     LayerMask interactableLayerMask;
+    LayerMask peopleLayerMask;
 
     InputAction cameraUp;
     InputAction cameraLeft;
     InputAction cameraRight;
     InputAction cameraDown;
     InputAction cameraDrag;
+
+    InputAction checkInfo;
 
     [SerializeField] private GameObject personPrefab;
     [SerializeField] private Transform personSpawnParent;
@@ -38,6 +38,7 @@ public class Actions : MonoBehaviour
             inputActionMap = new GameInputActionMap();
         }
         interactableLayerMask = LayerMask.GetMask("Plane");
+        peopleLayerMask = LayerMask.GetMask("People");
     }
 
     private void OnEnable()
@@ -71,12 +72,19 @@ public class Actions : MonoBehaviour
         cameraDrag.Enable();
         cameraDrag.performed += CameraDrag;
         cameraDrag.canceled += CameraDrag;
+
+        checkInfo = inputActionMap.Player.CheckInfo;
+        checkInfo.Enable();
+        checkInfo.performed += CheckPlayerInfo;
     }
 
     private void OnDisable()
     {
         placePerson.Disable();
         placePerson.performed -= PlacePerson;
+
+        checkInfo.Disable();
+        checkInfo.performed -= CheckPlayerInfo;
 
         cameraUp.Disable();
         cameraLeft.Disable();
@@ -212,6 +220,19 @@ public class Actions : MonoBehaviour
             {
                 Cursor.lockState = CursorLockMode.None;
                 Cursor.visible = true;
+            }
+        }
+    }
+
+    private void CheckPlayerInfo(InputAction.CallbackContext context)
+    {
+        if(context.performed)
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+            if (Physics.Raycast(ray, out RaycastHit hit, 1000, peopleLayerMask))
+            {
+                Debug.Log("Clicked person");
             }
         }
     }

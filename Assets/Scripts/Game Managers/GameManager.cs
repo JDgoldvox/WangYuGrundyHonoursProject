@@ -255,7 +255,6 @@ public class GameManager : MonoBehaviour
         // Ensure the tree is initialized
         if (script.root == null)
         {
-            Debug.LogWarning("Root was null, forcing initialization.");
             script.root = script.InitTree();
         }
 
