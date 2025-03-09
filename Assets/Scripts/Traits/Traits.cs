@@ -27,10 +27,10 @@ public class Traits : MonoBehaviour
         HIGH = 0.8f;
 
         //dynamic
-        happiness = UnityEngine.Random.Range(0.0f, 1.0f);
-        socialness = UnityEngine.Random.Range(0.0f, 0.2f);
-        energy = UnityEngine.Random.Range(0.0f, 1.0f);
-        anger = UnityEngine.Random.Range(0.0f, 1.0f);
+        happiness = 0.5f;
+        socialness = 0.5f;
+        energy = 0.5f;
+        anger = 0.5f;
 
         //static
         attentionSpan = UnityEngine.Random.Range(0.0f, 1.0f);
@@ -84,6 +84,6 @@ public class Traits : MonoBehaviour
             tempAnger = anger;
         }
 
-            return (happiness + socialness + 1 / tempAnger) / 3;
+        return (happiness + socialness + 1 / tempAnger) / 3;
     }
 }

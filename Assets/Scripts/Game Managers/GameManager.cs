@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    [SerializeField] private bool spawnInitialPopulation;
     [SerializeField] private GameObject personPrefab; 
     [SerializeField] private Transform PeopleParent;
     private List<Transform> peopleList;
@@ -20,6 +21,24 @@ public class GameManager : MonoBehaviour
     private float maxY = 2;
     private float maxZ = 100;
     private float minZ = -100;
+
+    private void Start()
+    {
+        //Spawn set amount of population
+        if(spawnInitialPopulation)
+        {
+            //Check how much population is in starting scene to find out amount of people to spawn
+            int spawnAmount = populationSize - PeopleParent.childCount;
+
+            for(int i = 0; i < spawnAmount; i++)
+            {
+                SpawnPrefabAtRandomLocation(personPrefab);
+
+                Randomise();
+            }
+        }
+
+    }
 
     /// <summary>
     /// Randomises the trees intially
@@ -184,15 +203,10 @@ public class GameManager : MonoBehaviour
                 increaseList.Add(PeopleParent.GetChild(randomChildNum).gameObject);
             }
 
-            //delete these people
+            //Duplicate these people
             foreach (var v in increaseList)
             {
-                float x = Random.Range(minX, maxX);
-                float z = Random.Range(minZ, maxZ);
-
-                Vector3 pos = new Vector3(x, maxY, z);
-
-                Instantiate(v, pos, Quaternion.identity, PeopleParent);
+                SpawnPrefabAtRandomLocation(v);
             }
         }
     }
@@ -234,12 +248,7 @@ public class GameManager : MonoBehaviour
 
     private void CreatePersonWithChildren(List<Node> newNodes)
     {
-        float x = Random.Range(minX, maxX);
-        float z = Random.Range(minZ, maxZ);
-
-        Vector3 pos = new Vector3(x, maxY, z);
-
-        GameObject p = Instantiate(personPrefab, pos, Quaternion.identity, PeopleParent);
+        GameObject p = SpawnPrefabAtRandomLocation(personPrefab);
 
         PersonBT script = p.GetComponent<PersonBT>();
 
@@ -257,5 +266,16 @@ public class GameManager : MonoBehaviour
         }
 
         script.root.children = newNodes;
+    }
+
+    private GameObject SpawnPrefabAtRandomLocation(GameObject prefab)
+    {
+        float x = Random.Range(minX, maxX);
+        float z = Random.Range(minZ, maxZ);
+        Vector3 pos = new Vector3(x, maxY, z);
+
+        GameObject p = Instantiate(prefab, pos, Quaternion.identity, PeopleParent);
+
+        return p;
     }
 }
