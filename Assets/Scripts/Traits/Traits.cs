@@ -4,10 +4,12 @@ using UnityEngine;
 public class Traits : MonoBehaviour
 {
     [Header("Dynamic traits")]
-    public float happiness = 1f; //amount of happiness doing things / being annoyed / tiredness / loudness
-    public float socialness = 1f; //talking requirement (0.5 is neutral)
-    public float energy = 1f; //speed of which to do activities
-    public float anger = 1f; //anger increases when people are being too loud or annoying
+    public float happiness; //Actions that make you happy
+    public float socialness; //talking requirement (0.5 is neutral)
+    public float energy; //speed of which to do activities
+    public float anger; //anger increases when people are being too loud or annoying
+    public float sadness; //Actions that make you sad
+    public float movement; //any physical translational movement
 
     [Header("Static traits")]
     public float attentionSpan = 1f; //speed multiplier for actions
@@ -20,17 +22,28 @@ public class Traits : MonoBehaviour
     [HideInInspector] public float MEDIUM;
     [HideInInspector] public float HIGH;
 
+    [HideInInspector] public float happinessInfluence;
+    [HideInInspector] public float socialnessInfluence;
+    [HideInInspector] public float energyInfluence;
+    [HideInInspector] public float angerInfluence;
+    [HideInInspector] public float sadnessInfluence;
+    [HideInInspector] public float movementInfluence;
+
     private void Start()
     {
         LOW = 0.2f;
         MEDIUM = 0.5f;
         HIGH = 0.8f;
 
+        happinessInfluence = 1f;
+        socialnessInfluence = 1f;
+        energyInfluence = 1f;
+        angerInfluence = 1f;
+        sadnessInfluence = 1f;
+        movementInfluence = 1f;
+
         //dynamic
-        happiness = 0.5f;
-        socialness = 0.5f;
-        energy = 0.5f;
-        anger = 0.5f;
+        ResetStats();
 
         //static
         attentionSpan = UnityEngine.Random.Range(0.0f, 1.0f);
@@ -44,6 +57,7 @@ public class Traits : MonoBehaviour
     {
         DecreaseTrait(ref socialness);
         DecreaseTraitAtRate(ref anger, 0.01f);
+        DecreaseTraitAtRate(ref movement, 0.01f);
     }
 
     public void DecreaseTrait(ref float trait)
@@ -71,9 +85,8 @@ public class Traits : MonoBehaviour
 
     public float ReturnFitnessFunction()
     {
-        //1/anger
-
         float tempAnger = 0;
+        SetInfluence();
 
         if(anger == 0)
         {
@@ -84,6 +97,32 @@ public class Traits : MonoBehaviour
             tempAnger = anger;
         }
 
-        return (happiness + socialness + 1 / tempAnger) / 3;
+        float score =
+            (happiness * happinessInfluence)
+            + (socialness * socialnessInfluence)
+            + (anger * angerInfluence) 
+            + (sadness * sadnessInfluence)
+            + (movement * movementInfluence);
+
+        return score / 5;
+    }
+
+    public void ResetStats()
+    {
+        happiness = 0.5f;
+        socialness = 0.5f;
+        energy = 0.5f;
+        anger = 0.5f;
+        sadness = 0.5f;
+        movement = 0.5f;
+    }
+
+    private void SetInfluence()
+    {
+        happinessInfluence = GameManager.Instance.happinessSlider.value;
+        sadnessInfluence = GameManager.Instance.sadnessSlider.value;
+        angerInfluence = GameManager.Instance.angerSlider.value;
+        socialnessInfluence = GameManager.Instance.socialnessSlider.value;
+        movementInfluence = GameManager.Instance.movementSlider.value;
     }
 }

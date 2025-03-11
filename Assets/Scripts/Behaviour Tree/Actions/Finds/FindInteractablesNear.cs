@@ -12,6 +12,7 @@ public class FindInteractablesNear : Node
 
     public FindInteractablesNear(PersonBT bt)
     {
+        nodeName = "FindInteractablesNear";
         personBT = bt;
         originTransform = personBT.gameObject.transform;
     }

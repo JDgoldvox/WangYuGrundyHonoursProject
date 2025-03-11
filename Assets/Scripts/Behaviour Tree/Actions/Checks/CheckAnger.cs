@@ -7,6 +7,7 @@ public class CheckAnger : Node
 
     public CheckAnger(PersonBT bt)
     {
+        nodeName = "CheckAnger";
         personBT = bt;
         traits = personBT.transform.GetComponent<Traits>();
     }

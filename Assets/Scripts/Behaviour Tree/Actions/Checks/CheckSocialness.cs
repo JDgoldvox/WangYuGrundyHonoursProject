@@ -8,6 +8,7 @@ public class CheckSocialness : Node
 
     public CheckSocialness(PersonBT bt)
     {
+        nodeName = "CheckSocialness";
         personBT = bt;
         traits = personBT.transform.GetComponent<Traits>();
     }

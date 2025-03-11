@@ -13,6 +13,7 @@ public class TaskCry : Node
     private Traits S_Traits;
     public TaskCry(PersonBT bt)
     {
+        nodeName = "TaskCry";
         personBT = bt;
         btTransform = personBT.transform;
         animator = personBT.animator;
@@ -34,6 +35,7 @@ public class TaskCry : Node
             }
 
             S_Traits.DecreaseTrait(ref S_Traits.energy);
+            S_Traits.IncreaseTrait(ref S_Traits.sadness);
         }
         else
         {

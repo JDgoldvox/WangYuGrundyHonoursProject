@@ -11,6 +11,7 @@ public class TaskMeditate : Node
 
     public TaskMeditate(PersonBT bt)
     {
+        nodeName = "TaskMeditate";
         personBT = bt;
         btTransform = personBT.transform;
         animator = personBT.animator;

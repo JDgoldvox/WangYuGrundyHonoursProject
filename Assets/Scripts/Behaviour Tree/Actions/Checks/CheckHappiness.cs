@@ -7,6 +7,7 @@ public class CheckHappiness : Node
 
     public CheckHappiness(PersonBT bt)
     {
+        nodeName = "CheckHappiness";
         personBT = bt;
         traits = personBT.transform.GetComponent<Traits>();   
     }

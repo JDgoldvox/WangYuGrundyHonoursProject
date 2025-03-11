@@ -13,6 +13,7 @@ public class CheckTargetInRange : Node
     float timer = float.MaxValue;
     public CheckTargetInRange(PersonBT bt)
     {
+        nodeName = "CheckTargetInRange";
         personBT = bt;
         originPosition = personBT.transform;
         animator = personBT.animator;

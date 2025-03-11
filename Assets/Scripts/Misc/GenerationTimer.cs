@@ -8,10 +8,12 @@ public class GenerationTimer : MonoBehaviour
 
     private float timer;
     private GameManager gameManager;
+    private Calculations calculations;
 
     private void Awake()
     {
         gameManager = GetComponent<GameManager>();
+        calculations = GetComponent<Calculations>();
     }
 
     private void Start()
@@ -38,6 +40,7 @@ public class GenerationTimer : MonoBehaviour
         }
 
         //Create new generation
+        calculations.UpdateAverageScore();
         gameManager.NextGeneration();
     }
 }

@@ -12,6 +12,7 @@ public class TaskTalk : Node
 
     public TaskTalk(PersonBT bt)
     {
+        nodeName = "TaskTalk";
         personBT = bt;
         btTransform = personBT.transform;
         animator = personBT.animator;

@@ -9,6 +9,7 @@ public class TaskWalkTowardInteractable : Node
 
     public TaskWalkTowardInteractable(PersonBT bt)
     {
+        nodeName = "TaskWalkTowardInteractable";
         personBT = bt;
         S_Traits = personBT.GetComponent<Traits>();
     }
@@ -30,6 +31,7 @@ public class TaskWalkTowardInteractable : Node
             );
 
             S_Traits.DecreaseTrait(ref S_Traits.energy);
+            S_Traits.IncreaseTrait(ref S_Traits.movement);
 
             if (Vector3.Distance(personBT.interactablesNear[0].transform.position , personBT.transform.position) < 0.5)
             {

@@ -20,6 +20,7 @@ public class TaskRandomWalk : Node
 
     public TaskRandomWalk(PersonBT btIn)
     {
+        nodeName = "TaskRandomWalk";
         personBT = btIn;
         targetTransform = personBT.transform;
         animator = personBT.animator;

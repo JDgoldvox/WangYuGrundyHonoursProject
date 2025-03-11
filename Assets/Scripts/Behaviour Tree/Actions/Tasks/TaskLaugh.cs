@@ -14,6 +14,7 @@ public class TaskLaugh : Node
 
     public TaskLaugh(PersonBT bt)
     {
+        nodeName = "TaskLaugh";
         personBT = bt;
         btTransform = personBT.transform;
         animator = personBT.animator;

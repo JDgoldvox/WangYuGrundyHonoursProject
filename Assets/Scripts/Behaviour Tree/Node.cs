@@ -18,6 +18,7 @@ namespace BehaviourTree
         public Node parent;
         public List<Node> children = new List<Node>();
         private Dictionary<string, object> data = new Dictionary<string, object>();
+        public string nodeName = "no name";
 
         public Node()
         {
@@ -85,7 +86,6 @@ namespace BehaviourTree
 
             return false;
         }
-
     }
 }
 

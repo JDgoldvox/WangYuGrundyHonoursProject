@@ -10,6 +10,7 @@ public class TaskTalkToForcedAttentionNPC : Node
 
     public TaskTalkToForcedAttentionNPC(PersonBT bt)
     {
+        nodeName = "TaskTalkToForcedAttentionNPC";
         personBT = bt;
         btTransform = personBT.transform;
         animator = personBT.animator;

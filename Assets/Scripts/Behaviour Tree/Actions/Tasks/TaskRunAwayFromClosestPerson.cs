@@ -14,6 +14,7 @@ public class TaskRunAwayFromClosestPerson : Node
 
     public TaskRunAwayFromClosestPerson(PersonBT bt)
     {
+        nodeName = "TaskRunAwayFromClosestPerson";
         personBT = bt;
         btTransform = personBT.transform;
         speed = personBT.runSpeed;
@@ -51,6 +52,8 @@ public class TaskRunAwayFromClosestPerson : Node
             btTransform.LookAt(positionToGoTo);
             btTransform.eulerAngles = new Vector3(0, btTransform.eulerAngles.y, 0);
             S_Traits.DecreaseTrait(ref S_Traits.energy);
+            S_Traits.IncreaseTrait(ref S_Traits.movement);
+            S_Traits.IncreaseTrait(ref S_Traits.anger);
         }
         else
         {

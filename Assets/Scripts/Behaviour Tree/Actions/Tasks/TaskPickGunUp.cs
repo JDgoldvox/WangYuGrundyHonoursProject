@@ -13,6 +13,7 @@ public class TaskPickGunUp : Node
 
     public TaskPickGunUp(PersonBT bt)
     {
+        nodeName = "TaskPickGunUp";
         personBT = bt;
         btTransform = personBT.transform;
         animator = personBT.animator;

@@ -25,7 +25,6 @@ public class PersonBT : BehaviourTree.Tree
     public float walkSpeed;
     public float runSpeed;
     public float visionRange;
-
     private void Awake()
     {
         animator = GetComponent<Animator>();
@@ -41,15 +40,15 @@ public class PersonBT : BehaviourTree.Tree
             //TRIGGERS (ACTIONS THAT MUST TAKE PRIORITY) ----------------------------
             
             //Direct interaction 
-            new Sequence(new List<Node>
+            new Sequence("Direct Interaction", new List<Node>
             {
                 new CheckForceAttention(this),
                 new TaskLookAtForcedNPC(this),
                 new TaskTalkToForcedAttentionNPC(this),
             }),
 
-            ////Environment (ACTIONS BASED ON CURRENT ENVIRONMENT  --------------------------------------------
-            new Sequence(new List<Node>
+            //Environment (ACTIONS BASED ON CURRENT ENVIRONMENT  --------------------------------------------
+            new Sequence("Environment", new List<Node>
             {
                 //find props
                 new FindInteractablesNear(this),
@@ -57,17 +56,17 @@ public class PersonBT : BehaviourTree.Tree
                 new TaskPickGunUp(this),
             }),
 
-            ////Traits (ACTIONS BASED ON MUST NEED TO DO TO SURVIVE)  --------------------------------------------
+            //Traits (ACTIONS BASED ON MUST NEED TO DO TO SURVIVE)  --------------------------------------------
 
             //Low Energy - meditate 
-            new Sequence(new List<Node>()
+            new Sequence("Meditate",new List<Node>()
             {
                 new CheckEnergy(this),
                 new TaskMeditate(this),
             }),
 
-            ////Socialness - talk to other people
-            new Sequence(new List<Node>()
+            //Socialness - talk to other people
+            new Sequence("Socialness",new List<Node>()
             {
                 new CheckSocialness(this),
                 new FindNearestPlayer(this),
@@ -77,15 +76,15 @@ public class PersonBT : BehaviourTree.Tree
             }),
 
             //Anger - run away
-            new Sequence(new List<Node>()
+            new Sequence("anger", new List<Node>()
             {
                 new CheckAnger(this),
                 new FindNearestPlayer(this),
                 new TaskRunAwayFromClosestPerson(this),
             }),
 
-            //Other people (ACTIONS BASED ON OTHER PEOPLE) --------------------------------------------
-            //new Sequence(new List<Node>()
+            ////Other people (ACTIONS BASED ON OTHER PEOPLE) --------------------------------------------
+            //new Sequence("Actions based on other people", new List<Node>()
             //{
             //    new FindPeopleNear(this),
             //    new FindPopularTasks(this),
@@ -94,14 +93,12 @@ public class PersonBT : BehaviourTree.Tree
 
             //Random  --------------------------------------------
 
-            //new TaskHappy(this),
-            //new TaskMeditate(this),
-            //new TaskRandomWalk(this),
-            //new TaskCry(this),
-            //new TaskLaugh(this),
+            new TaskHappy(this),
+            new TaskMeditate(this),
+            new TaskCry(this),
+            new TaskLaugh(this),
 
-
-            new Sequence(new List<Node>()
+            new Sequence("Walk to target", new List<Node>()
             {
                 new CheckTargetInRange(this),
                 new TaskGoToTarget(this),
@@ -111,7 +108,6 @@ public class PersonBT : BehaviourTree.Tree
         }); 
         
         return root;
-
     }
 
     public void ResetAnimations()
@@ -120,5 +116,29 @@ public class PersonBT : BehaviourTree.Tree
         {
             animator.SetBool(parameter.name, false);
         }
+    }
+
+    public string GetNodesAsString()
+    {
+        string s = "";
+
+        //add children node names;
+        foreach (var child in root.children)
+        {
+            string childrenAsString = child.nodeName + "\n";
+
+            //add children's children node names
+            if (child.children.Count != 0)
+            {
+                foreach (var c in child.children)
+                {
+                    childrenAsString += "       " + c.nodeName + "\n";
+                }
+            }
+
+            s += childrenAsString + "\n";
+        }
+
+        return s;
     }
 }

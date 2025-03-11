@@ -7,6 +7,7 @@ public class CheckForceAttention : Node
 
     public CheckForceAttention(PersonBT bt)
     {
+        nodeName = "CheckForceAttention";
         personBT = bt;
     }
     public override NODE_STATE Evaluate()

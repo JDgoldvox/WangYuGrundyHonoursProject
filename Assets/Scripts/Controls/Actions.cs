@@ -31,6 +31,9 @@ public class Actions : MonoBehaviour
     private bool isCameraMovingBackward = false;
     private bool isCameraDragging = false;
 
+    [SerializeField] private GameObject infoPanelGameObject;
+    private InfoPanel infoPanel;
+
     private void Awake()
     {
         if (inputActionMap == null)
@@ -39,6 +42,8 @@ public class Actions : MonoBehaviour
         }
         interactableLayerMask = LayerMask.GetMask("Plane");
         peopleLayerMask = LayerMask.GetMask("People");
+
+        infoPanel = infoPanelGameObject.GetComponent<InfoPanel>();
     }
 
     private void OnEnable()
@@ -232,7 +237,7 @@ public class Actions : MonoBehaviour
 
             if (Physics.Raycast(ray, out RaycastHit hit, 1000, peopleLayerMask))
             {
-                Debug.Log("Clicked person");
+                infoPanel.DisplayPersonInfo(hit.transform.gameObject);
             }
         }
     }

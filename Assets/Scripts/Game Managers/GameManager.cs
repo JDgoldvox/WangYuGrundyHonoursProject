@@ -3,24 +3,38 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
+    public static GameManager Instance;
+
     [SerializeField] private bool spawnInitialPopulation;
     [SerializeField] private GameObject personPrefab; 
     [SerializeField] private Transform PeopleParent;
     private List<Transform> peopleList;
+
+    public Slider happinessSlider;
+    public Slider sadnessSlider;
+    public Slider angerSlider;
+    public Slider movementSlider;
+    public Slider socialnessSlider;
 
     [Range(0f, 1f)][SerializeField] private float probabilityOfFilter;
     [Range(0f, 1f)][SerializeField] private float probabilityOfCrossOver;
     [Range(0f, 1f)][SerializeField] private float fitnessThresholdToCull;
     [Range(0, 200)][SerializeField] private int populationSize;
 
-    private float maxX = 100;
-    private float minX = -100;
+    private float maxX = 20;
+    private float minX = -20;
     private float maxY = 2;
-    private float maxZ = 100;
-    private float minZ = -100;
+    private float maxZ = 20;
+    private float minZ = -20;
+
+    private void Awake()
+    {
+        Instance = this;
+    }
 
     private void Start()
     {
@@ -37,7 +51,6 @@ public class GameManager : MonoBehaviour
                 Randomise();
             }
         }
-
     }
 
     /// <summary>
@@ -53,7 +66,9 @@ public class GameManager : MonoBehaviour
         {
             PersonBT personBT = person.GetComponent<PersonBT>();
 
-            List<Node> nodes = personBT.root.children;
+            List<Node> nodes = new List<Node>();
+            nodes = personBT.root.children;
+
             int maxChildren = personBT.root.children.Count;
 
             for (int i = 0; i < maxChildren; i++)
@@ -274,6 +289,7 @@ public class GameManager : MonoBehaviour
         Vector3 pos = new Vector3(x, maxY, z);
 
         GameObject p = Instantiate(prefab, pos, Quaternion.identity, PeopleParent);
+        p.GetComponent<Traits>().ResetStats();
 
         return p;
     }

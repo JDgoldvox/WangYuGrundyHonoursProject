@@ -16,6 +16,7 @@ public class TaskGoToTarget : Node
 
     public TaskGoToTarget(PersonBT bt)
     {
+        nodeName = "TaskGoToTarget";
         personBT = bt;
         btTransform = personBT.transform;
         speed = personBT.walkSpeed;

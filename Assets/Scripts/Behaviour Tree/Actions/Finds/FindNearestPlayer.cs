@@ -12,6 +12,7 @@ public class FindNearestPlayer : Node
 
     public FindNearestPlayer(PersonBT bt)
     {
+        nodeName = "FindNearestPlayer";
         personBT = bt;
         originTransform = personBT.gameObject.transform;
     }

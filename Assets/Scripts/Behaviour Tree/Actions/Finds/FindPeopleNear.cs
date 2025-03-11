@@ -13,6 +13,7 @@ public class FindPeopleNear : Node
     private float cooldown = 1f;
     public FindPeopleNear(PersonBT bt)
     {
+        nodeName = "FindPeopleNear";
         personBT = bt;
         originTransform = personBT.gameObject.transform;
     }

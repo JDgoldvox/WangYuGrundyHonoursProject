@@ -11,6 +11,7 @@ public class TaskLookAtForcedNPC : Node
 
     public TaskLookAtForcedNPC(PersonBT bt)
     {
+        nodeName = "TaskLookAtForcedNPC";
         personBT = bt;
         btTransform = personBT.transform;
     }

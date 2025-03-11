@@ -14,6 +14,7 @@ public class TaskHappy : Node
 
     public TaskHappy(PersonBT bt)
     {
+        nodeName = "TaskHappy";
         personBT = bt;
         btTransform = personBT.transform;
         animator = personBT.animator;

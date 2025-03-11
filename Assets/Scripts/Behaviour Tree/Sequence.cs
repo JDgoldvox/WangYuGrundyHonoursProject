@@ -11,7 +11,10 @@ namespace BehaviourTree
     {
         //makes sure base is called
         public Sequence() : base() {}
-        public Sequence(List<Node> children) : base(children) {}
+        public Sequence(string nameOfSequence, List<Node> children) : base(children) 
+        {
+            nodeName = nameOfSequence;
+        }
 
         public override NODE_STATE Evaluate() 
         {

@@ -8,6 +8,7 @@ public class FindPopularTasks : Node
 
     public FindPopularTasks(PersonBT bt)
     {
+        nodeName = "FindPopularTasks";
         personBT = bt;
     }
 

@@ -10,6 +10,7 @@ public class CheckEnergy : Node
 
     public CheckEnergy(PersonBT bt)
     {
+        nodeName = "CheckEnergy";
         personBT = bt;
         traits = personBT.transform.GetComponent<Traits>();
     }

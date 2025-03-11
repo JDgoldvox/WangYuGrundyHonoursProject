@@ -17,6 +17,7 @@ public class TaskPatrol : Node
 
     public TaskPatrol(Transform transformIn, Transform[] wayPointsIn, Animator animatorIn, float speedIn)
     {
+        nodeName = "TaskPatrol";
         transform = transformIn;
         wayPoints = wayPointsIn;
         animator = animatorIn;
