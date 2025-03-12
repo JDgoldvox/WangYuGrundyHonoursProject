@@ -43,7 +43,10 @@ public class Actions : MonoBehaviour
         interactableLayerMask = LayerMask.GetMask("Plane");
         peopleLayerMask = LayerMask.GetMask("People");
 
-        infoPanel = infoPanelGameObject.GetComponent<InfoPanel>();
+        if(infoPanelGameObject != null)
+        {
+            infoPanel = infoPanelGameObject.GetComponent<InfoPanel>();
+        }
     }
 
     private void OnEnable()

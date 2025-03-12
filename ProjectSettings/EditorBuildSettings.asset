@@ -8,5 +8,14 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/PlayGround.unity
     guid: 99c9720ab356a0642a771bea13969a05
+  - enabled: 1
+    path: Assets/Scenes/Standard Behaviour Tree Scene.unity
+    guid: 58eea39685924be47a153f5e039e4704
+  - enabled: 1
+    path: Assets/Scenes/Genetic Algorithm Scene.unity
+    guid: d8a2743d6c4b4b94eaa4179948ddce67
+  - enabled: 1
+    path: Assets/Scenes/Main Menu.unity
+    guid: dd5664f6a34b0f045aba855e3fb25a9a
   m_configObjects: {}
   m_UseUCBPForAssetBundles: 0
