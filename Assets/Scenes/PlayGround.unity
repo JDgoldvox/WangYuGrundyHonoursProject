@@ -1580,6 +1580,11 @@ PrefabInstance:
       objectReference: {fileID: 248290127}
     - target: {fileID: 1973104433972397815, guid: 12d4bab38b843e14cad8d28faa3189ba,
         type: 3}
+      propertyPath: populationSize
+      value: 95
+      objectReference: {fileID: 0}
+    - target: {fileID: 1973104433972397815, guid: 12d4bab38b843e14cad8d28faa3189ba,
+        type: 3}
       propertyPath: happinessSlider
       value: 
       objectReference: {fileID: 990426637}
@@ -1588,6 +1593,16 @@ PrefabInstance:
       propertyPath: socialnessSlider
       value: 
       objectReference: {fileID: 513577920}
+    - target: {fileID: 1973104433972397815, guid: 12d4bab38b843e14cad8d28faa3189ba,
+        type: 3}
+      propertyPath: fitnessThresholdToCull
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1973104433972397815, guid: 12d4bab38b843e14cad8d28faa3189ba,
+        type: 3}
+      propertyPath: probabilityOfCrossOver
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2457949561160606515, guid: 12d4bab38b843e14cad8d28faa3189ba,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1643,6 +1658,11 @@ PrefabInstance:
       propertyPath: peopleParent
       value: 
       objectReference: {fileID: 1366233555}
+    - target: {fileID: 5268150075485210302, guid: 12d4bab38b843e14cad8d28faa3189ba,
+        type: 3}
+      propertyPath: secondsPerGeneration
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 7015078548707100432, guid: 12d4bab38b843e14cad8d28faa3189ba,
         type: 3}
       propertyPath: m_Name

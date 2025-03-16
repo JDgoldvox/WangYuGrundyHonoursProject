@@ -25,6 +25,9 @@ public class PersonBT : BehaviourTree.Tree
     public float walkSpeed;
     public float runSpeed;
     public float visionRange;
+
+    public int preDeterminedTree = -1;
+
     private void Awake()
     {
         animator = GetComponent<Animator>();
@@ -34,6 +37,12 @@ public class PersonBT : BehaviourTree.Tree
     {
         peopleNear = new List<Transform>();
         interactablesNear = new List<Transform>();
+
+        if(preDeterminedTree != -1)
+        {
+            Node d = PreDeterminedTree.ReturnTree(preDeterminedTree, this);
+            return d;
+        }
 
         Node root = new Selector(new List<Node>
         {
