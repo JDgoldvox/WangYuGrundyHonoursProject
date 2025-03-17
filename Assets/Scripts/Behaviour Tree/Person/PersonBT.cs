@@ -31,13 +31,12 @@ public class PersonBT : BehaviourTree.Tree
     private void Awake()
     {
         animator = GetComponent<Animator>();
+        peopleNear = new List<Transform>();
+        interactablesNear = new List<Transform>();
     }
 
     public override Node InitTree()
     {
-        peopleNear = new List<Transform>();
-        interactablesNear = new List<Transform>();
-
         if(preDeterminedTree != -1)
         {
             Node d = PreDeterminedTree.ReturnTree(preDeterminedTree, this);

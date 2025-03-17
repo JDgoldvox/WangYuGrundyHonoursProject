@@ -1,8 +1,10 @@
 using BehaviourTree;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem.HID;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
@@ -19,11 +21,13 @@ public class GameManager : MonoBehaviour
     public Slider angerSlider;
     public Slider movementSlider;
     public Slider socialnessSlider;
+    public Slider populationSlider;
+    public TMP_Text populationText;
 
     [Range(0f, 1f)][SerializeField] private float probabilityOfFilter;
     [Range(0f, 1f)][SerializeField] private float probabilityOfCrossOver;
     [Range(0f, 1f)][SerializeField] private float fitnessThresholdToCull;
-    [Range(0, 200)][SerializeField] private int populationSize;
+    private int populationSize = 1;
 
     private float maxX = 20;
     private float minX = -20;
@@ -51,6 +55,12 @@ public class GameManager : MonoBehaviour
                 Randomise();
             }
         }
+    }
+
+    private void Update()
+    {
+        populationText.text = "population: " + (int)populationSlider.value;
+        populationSize = (int)populationSlider.value;
     }
 
     /// <summary>
@@ -221,7 +231,10 @@ public class GameManager : MonoBehaviour
             //Duplicate these people
             foreach (var v in increaseList)
             {
+                //List<Node> nodes = v.GetComponent<PersonBT>().root.children;
                 SpawnPrefabAtRandomLocation(v);
+                // GameObject b = SpawnPrefabAtRandomLocation(v);
+                //b.GetComponent<PersonBT>().root.children = nodes;
             }
         }
     }
@@ -235,11 +248,10 @@ public class GameManager : MonoBehaviour
     private List<Node> Crossover(int indexA, int indexB)
     {
         PersonBT personA = peopleList[indexA].GetComponent<PersonBT>();
-        List<Node> nodesA = personA.root.children;
+        List<Node> nodesA = new List<Node>(personA.root.children);
 
         PersonBT personB = peopleList[indexB].GetComponent<PersonBT>();
-        List<Node> nodesB = personA.root.children;
-
+        List<Node> nodesB = new List<Node>(personA.root.children);
 
         int halfNodesA = nodesA.Count / 2;
         int halfNodesB = nodesB.Count / 2;
@@ -249,13 +261,29 @@ public class GameManager : MonoBehaviour
         //add nodes A
         for (int i = 0; i < halfNodesA; i++)
         {
-            newNodes.Add(nodesA[i]);
+            Node newNodeA = new Node();
+            newNodeA.children = new List<Node>(nodesA[i].children);
+            newNodeA.nodeName = nodesA[i].nodeName;
+            newNodes.Add(newNodeA);   
         }
+
+        //Debug.Log(" --------------A--------------");
+        //foreach (var child in newNodes)
+        //{
+        //    Debug.Log(child.nodeName);
+        //}
+
+        //Debug.Log(" --------------B--------------");
 
         //add nodes B
         for (int i = 0; i < halfNodesB; i++)
         {
-            newNodes.Add(nodesB[i]);
+            Node newNodeB = new Node();
+            newNodeB.children = new List<Node>(nodesB[i].children);
+            newNodeB.nodeName = nodesB[i].nodeName;
+            newNodes.Add(newNodeB);
+
+            //Debug.Log(newNodeB.nodeName);
         }
 
         return newNodes;
@@ -267,19 +295,25 @@ public class GameManager : MonoBehaviour
 
         PersonBT script = p.GetComponent<PersonBT>();
 
-        // Ensure the tree is initialized
-        if (script.root == null)
+        //create a sequence node to set as root
+
+        Node newRoot = new Selector();
+        foreach(Node n in newNodes)
         {
-            script.root = script.InitTree();
+            newRoot.Attach(n);
         }
 
-        if (script.root == null)
-        {
-            Debug.LogError("Root is still null after initialization!");
-            return;
-        }
+        script.root = newRoot;
 
         script.root.children = newNodes;
+
+        //PRINT OUT ALL NEW NODES
+        Debug.Log("NEW NODE INPUT: ----------------------------");
+        foreach (var child in script.root.children)
+        {
+            Debug.Log(child.nodeName);
+        }
+        
     }
 
     private GameObject SpawnPrefabAtRandomLocation(GameObject prefab)
