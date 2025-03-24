@@ -1,10 +1,7 @@
 using BehaviourTree;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.InputSystem.HID;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
@@ -23,10 +20,13 @@ public class GameManager : MonoBehaviour
     public Slider socialnessSlider;
     public Slider populationSlider;
     public TMP_Text populationText;
+    public TMP_Text fitnessText;
+    public Slider fitnessThresholdToCull;
+    public TMP_Text fitnessThresholdToCullText;
+
 
     [Range(0f, 1f)][SerializeField] private float probabilityOfFilter;
     [Range(0f, 1f)][SerializeField] private float probabilityOfCrossOver;
-    [Range(0f, 1f)][SerializeField] private float fitnessThresholdToCull;
     private int populationSize = 1;
 
     private float maxX = 20;
@@ -61,6 +61,20 @@ public class GameManager : MonoBehaviour
     {
         populationText.text = "population: " + (int)populationSlider.value;
         populationSize = (int)populationSlider.value;
+
+
+        //update avr fitness
+        float fitness = 0;
+        for(int i = 0; i < PeopleParent.childCount; i++)
+        {
+            fitness += PeopleParent.GetChild(i).GetComponent<Traits>().ReturnFitnessFunction();
+        }
+
+        fitness /= PeopleParent.childCount;
+        fitnessText.text = "Average Fitness: " + fitness.ToString("F2");
+
+        //update cull threshold
+        fitnessThresholdToCullText.text = "fitness threshold: " + fitnessThresholdToCull.value;
     }
 
     /// <summary>
@@ -135,15 +149,15 @@ public class GameManager : MonoBehaviour
 
         foreach (Transform person in peopleList)
         {
-            //Randomise threshold for a filter
-            if(Random.Range(0, 1) > probabilityOfFilter)
-            {
-                continue;
-            }
+            ////Randomise threshold for a filter
+            //if(Random.Range(0, 1) > probabilityOfFilter)
+            //{
+            //    continue;
+            //}
 
             Traits traits = person.GetComponent<Traits>();
 
-            if(traits.ReturnFitnessFunction() < fitnessThresholdToCull)
+            if(traits.ReturnFitnessFunction() < fitnessThresholdToCull.value)
             {
                 deleteList.Add(person);
             }
@@ -172,7 +186,7 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < peopleCount; i += 2)
         {
             //Randomise threshold for a crossover
-            if (Random.Range(0, 1) > probabilityOfCrossOver)
+            if (Random.Range(0, 1) < probabilityOfCrossOver)
             {
                 continue;
             }
@@ -295,8 +309,7 @@ public class GameManager : MonoBehaviour
 
         PersonBT script = p.GetComponent<PersonBT>();
 
-        //create a sequence node to set as root
-
+        //create a selector node to set as root
         Node newRoot = new Selector();
         foreach(Node n in newNodes)
         {
@@ -305,15 +318,8 @@ public class GameManager : MonoBehaviour
 
         script.root = newRoot;
 
-        script.root.children = newNodes;
+        //script.root.children = newNodes;
 
-        //PRINT OUT ALL NEW NODES
-        Debug.Log("NEW NODE INPUT: ----------------------------");
-        foreach (var child in script.root.children)
-        {
-            Debug.Log(child.nodeName);
-        }
-        
     }
 
     private GameObject SpawnPrefabAtRandomLocation(GameObject prefab)
