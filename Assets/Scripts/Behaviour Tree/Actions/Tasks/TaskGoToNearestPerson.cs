@@ -1,7 +1,7 @@
 using BehaviourTree;
 using System.Collections.Generic;
 using UnityEngine;
-using BehaviourTree;
+using BehaviourTreeWang;
 
 /// <summary>
 /// Goes to target and stop at 2m

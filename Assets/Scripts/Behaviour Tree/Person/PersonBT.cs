@@ -1,4 +1,4 @@
-using BehaviourTree;
+using BehaviourTreeWang;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,7 +10,7 @@ public enum Tasks{
     Talk,
     Meditate
 }
-public class PersonBT : BehaviourTree.Tree
+public class PersonBT : BehaviourTreeWang.Tree
 {
     public UnityEngine.Animator animator;
 

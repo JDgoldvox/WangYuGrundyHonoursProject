@@ -2,15 +2,20 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Collections;
 
-namespace BehaviourTree
+namespace BehaviourTreeWang
 {
     public abstract class Tree : MonoBehaviour
     {
         [SerializeReference]
         public Node root = null;
+        [HideInInspector] public bool IsCloned = false;
+
         protected void Start()
         {
-            root = InitTree();
+            if(IsCloned == false)
+            {
+                root = InitTree();
+            }
         }
 
         private void Update()

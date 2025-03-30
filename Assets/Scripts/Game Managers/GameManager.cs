@@ -245,10 +245,7 @@ public class GameManager : MonoBehaviour
             //Duplicate these people
             foreach (var v in increaseList)
             {
-                //List<Node> nodes = v.GetComponent<PersonBT>().root.children;
                 SpawnPrefabAtRandomLocation(v);
-                // GameObject b = SpawnPrefabAtRandomLocation(v);
-                //b.GetComponent<PersonBT>().root.children = nodes;
             }
         }
     }
@@ -281,14 +278,6 @@ public class GameManager : MonoBehaviour
             newNodes.Add(newNodeA);   
         }
 
-        //Debug.Log(" --------------A--------------");
-        //foreach (var child in newNodes)
-        //{
-        //    Debug.Log(child.nodeName);
-        //}
-
-        //Debug.Log(" --------------B--------------");
-
         //add nodes B
         for (int i = 0; i < halfNodesB; i++)
         {
@@ -296,8 +285,6 @@ public class GameManager : MonoBehaviour
             newNodeB.children = new List<Node>(nodesB[i].children);
             newNodeB.nodeName = nodesB[i].nodeName;
             newNodes.Add(newNodeB);
-
-            //Debug.Log(newNodeB.nodeName);
         }
 
         return newNodes;
@@ -308,6 +295,7 @@ public class GameManager : MonoBehaviour
         GameObject p = SpawnPrefabAtRandomLocation(personPrefab);
 
         PersonBT script = p.GetComponent<PersonBT>();
+        //script.IsCloned = true;
 
         //create a selector node to set as root
         Node newRoot = new Selector();
@@ -317,9 +305,6 @@ public class GameManager : MonoBehaviour
         }
 
         script.root = newRoot;
-
-        //script.root.children = newNodes;
-
     }
 
     private GameObject SpawnPrefabAtRandomLocation(GameObject prefab)
