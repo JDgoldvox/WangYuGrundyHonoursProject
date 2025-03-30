@@ -1,4 +1,4 @@
-using BehaviourTree;
+using BehaviourTreeWang;
 using UnityEngine;
 
 public class TaskTalkToForcedAttentionNPC : Node

@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace BehaviourTree
+namespace BehaviourTreeWang
 {
     /// <summary>
     /// Sequence returns success if all nodes are successful

@@ -1,4 +1,4 @@
-using BehaviourTree;
+using BehaviourTreeWang;
 
 public class CheckHappiness : Node
 {

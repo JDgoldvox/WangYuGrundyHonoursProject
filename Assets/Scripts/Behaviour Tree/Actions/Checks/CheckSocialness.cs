@@ -1,4 +1,4 @@
-using BehaviourTree;
+using BehaviourTreeWang;
 using System.Diagnostics;
 
 public class CheckSocialness : Node

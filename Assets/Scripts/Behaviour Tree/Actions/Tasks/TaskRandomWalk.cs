@@ -1,5 +1,5 @@
 using UnityEngine;
-using BehaviourTree;
+using BehaviourTreeWang;
 
 public class TaskRandomWalk : Node
 {

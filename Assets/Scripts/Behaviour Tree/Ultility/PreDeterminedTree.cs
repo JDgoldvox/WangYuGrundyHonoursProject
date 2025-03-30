@@ -1,5 +1,5 @@
 using UnityEngine;
-using BehaviourTree;
+using BehaviourTreeWang;
 using System.Collections.Generic;
 public static class PreDeterminedTree
 {
