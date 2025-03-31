@@ -4,7 +4,6 @@ using UnityEngine.UIElements;
 public class TaskLaugh : Node
 {
     private Transform btTransform;
-    private PersonBT personBT;
 
     private float waitCounter = 0;
     private float maxWaitCounter = 2f;
@@ -13,6 +12,15 @@ public class TaskLaugh : Node
     private Traits S_Traits;
 
     public TaskLaugh(PersonBT bt)
+    {
+        nodeName = "TaskLaugh";
+        personBT = bt;
+        btTransform = personBT.transform;
+        animator = personBT.animator;
+        S_Traits = personBT.GetComponent<Traits>();
+    }
+
+    public override void CloneInit(PersonBT bt)
     {
         nodeName = "TaskLaugh";
         personBT = bt;

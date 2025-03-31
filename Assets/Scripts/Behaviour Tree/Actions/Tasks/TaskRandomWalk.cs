@@ -1,5 +1,6 @@
 using UnityEngine;
 using BehaviourTreeWang;
+using UnityEngine.UIElements;
 
 public class TaskRandomWalk : Node
 {
@@ -13,15 +14,25 @@ public class TaskRandomWalk : Node
     private Vector3 destination = Vector3.zero;
     private float maxRange = 10f;
 
-    private PersonBT personBT;
     float xDist, zDist;
 
     private Traits S_Traits;
 
-    public TaskRandomWalk(PersonBT btIn)
+    public TaskRandomWalk(PersonBT bt)
     {
         nodeName = "TaskRandomWalk";
-        personBT = btIn;
+        personBT = bt;
+        targetTransform = personBT.transform;
+        animator = personBT.animator;
+        speed = personBT.walkSpeed;
+        S_BehaviourTreeUtility = personBT.transform.GetComponent<BehaviourTreeUtility>();
+        S_Traits = personBT.GetComponent<Traits>();
+    }
+
+    public override void CloneInit(PersonBT bt)
+    {
+        nodeName = "TaskRandomWalk";
+        personBT = bt;
         targetTransform = personBT.transform;
         animator = personBT.animator;
         speed = personBT.walkSpeed;

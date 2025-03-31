@@ -3,7 +3,6 @@ using System.Diagnostics;
 
 public class CheckSocialness : Node
 {
-    private PersonBT personBT;
     private Traits traits;
 
     public CheckSocialness(PersonBT bt)
@@ -13,6 +12,12 @@ public class CheckSocialness : Node
         traits = personBT.transform.GetComponent<Traits>();
     }
 
+    public override void CloneInit(PersonBT bt)
+    {
+        nodeName = "CheckSocialness";
+        personBT = bt;
+        traits = personBT.transform.GetComponent<Traits>();
+    }
     public override NODE_STATE Evaluate()
     {
         //Check if Socialness trait is < 0.3

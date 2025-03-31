@@ -1,15 +1,20 @@
 using UnityEngine;
 using BehaviourTreeWang;
-using UnityEngine.UIElements;
 
 public class TaskLookAtForcedNPC : Node
 {
-    private PersonBT personBT;
     private Transform btTransform;
     private float cooldown = 0.5f;
     private float timer = 0;
 
     public TaskLookAtForcedNPC(PersonBT bt)
+    {
+        nodeName = "TaskLookAtForcedNPC";
+        personBT = bt;
+        btTransform = personBT.transform;
+    }
+
+    public override void CloneInit(PersonBT bt)
     {
         nodeName = "TaskLookAtForcedNPC";
         personBT = bt;

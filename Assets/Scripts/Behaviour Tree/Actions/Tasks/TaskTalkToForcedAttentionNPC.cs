@@ -4,7 +4,6 @@ using UnityEngine;
 public class TaskTalkToForcedAttentionNPC : Node
 {
     private Transform btTransform;
-    private PersonBT personBT;
     private Animator animator;
     private Traits S_Traits;
 
@@ -17,6 +16,14 @@ public class TaskTalkToForcedAttentionNPC : Node
         S_Traits = personBT.GetComponent<Traits>();
     }
 
+    public override void CloneInit(PersonBT bt)
+    {
+        nodeName = "TaskTalkToForcedAttentionNPC";
+        personBT = bt;
+        btTransform = personBT.transform;
+        animator = personBT.animator;
+        S_Traits = personBT.GetComponent<Traits>();
+    }
     public override NODE_STATE Evaluate()
     {
         if (!animator.GetBool("isTalking"))

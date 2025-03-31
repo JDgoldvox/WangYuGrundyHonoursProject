@@ -1,17 +1,21 @@
 using UnityEngine;
 using BehaviourTreeWang;
 using System.Collections.Generic;
+using Unity.Mathematics;
 
 public class FindPopularTasks : Node
 {
-    private PersonBT personBT;
-
     public FindPopularTasks(PersonBT bt)
     {
         nodeName = "FindPopularTasks";
         personBT = bt;
     }
 
+    public override void CloneInit(PersonBT bt)
+    {
+        nodeName = "FindPopularTasks";
+        personBT = bt;
+    }
     public override NODE_STATE Evaluate()
     {
         //get reference to list of poeple

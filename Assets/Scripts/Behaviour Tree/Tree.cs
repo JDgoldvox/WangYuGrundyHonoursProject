@@ -16,6 +16,10 @@ namespace BehaviourTreeWang
             {
                 root = InitTree();
             }
+            else
+            {
+                InitClone();
+            }
         }
 
         private void Update()
@@ -28,6 +32,7 @@ namespace BehaviourTreeWang
         }
 
         public abstract Node InitTree();
-    
+        
+        public abstract void InitClone();
     }
 }

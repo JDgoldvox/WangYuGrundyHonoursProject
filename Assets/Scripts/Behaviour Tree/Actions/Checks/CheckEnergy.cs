@@ -4,11 +4,17 @@ using UnityEngine;
 
 public class CheckEnergy : Node
 {
-    private PersonBT personBT;
     private Traits traits;
     float targetEnergy = 0;
 
     public CheckEnergy(PersonBT bt)
+    {
+        nodeName = "CheckEnergy";
+        personBT = bt;
+        traits = personBT.transform.GetComponent<Traits>();
+    }
+
+    public override void CloneInit(PersonBT bt)
     {
         nodeName = "CheckEnergy";
         personBT = bt;

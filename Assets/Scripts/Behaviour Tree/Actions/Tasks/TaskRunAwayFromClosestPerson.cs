@@ -6,7 +6,6 @@ using UnityEngine;
 /// </summary>
 public class TaskRunAwayFromClosestPerson : Node
 {
-    PersonBT personBT;
     private Transform btTransform;
     private float speed;
     private Animator animator;
@@ -22,6 +21,15 @@ public class TaskRunAwayFromClosestPerson : Node
         S_Traits = personBT.GetComponent<Traits>();
     }
 
+    public override void CloneInit(PersonBT bt)
+    {
+        nodeName = "TaskRunAwayFromClosestPerson";
+        personBT = bt;
+        btTransform = personBT.transform;
+        speed = personBT.runSpeed;
+        animator = personBT.animator;
+        S_Traits = personBT.GetComponent<Traits>();
+    }
     public override NODE_STATE Evaluate()
     {
         if (personBT.nearestPlayer == null)

@@ -3,9 +3,12 @@ using BehaviourTreeWang;
 using UnityEngine.UIElements;
 public class SetForceAttentionToNPC : Node
 {
-    private PersonBT personBT;
-
     public SetForceAttentionToNPC(PersonBT bt)
+    {
+        personBT = bt;
+    }
+
+    public override void CloneInit(PersonBT bt)
     {
         personBT = bt;
     }

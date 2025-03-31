@@ -4,13 +4,19 @@ using UnityEngine;
 
 public class FindNearestPlayer : Node
 {
-    private PersonBT personBT;
     private Transform originTransform;
     private int peopleLayerMask = LayerMask.GetMask("People");
     private float timer = 0;
     private float cooldown = 0.5f;
 
     public FindNearestPlayer(PersonBT bt)
+    {
+        nodeName = "FindNearestPlayer";
+        personBT = bt;
+        originTransform = personBT.gameObject.transform;
+    }
+
+    public override void CloneInit(PersonBT bt)
     {
         nodeName = "FindNearestPlayer";
         personBT = bt;

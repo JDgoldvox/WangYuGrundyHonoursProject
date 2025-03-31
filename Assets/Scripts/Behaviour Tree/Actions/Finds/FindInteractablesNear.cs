@@ -4,13 +4,19 @@ using System.Collections.Generic;
 
 public class FindInteractablesNear : Node
 {
-    private PersonBT personBT;
     private Transform originTransform;
     private int interactableLayerMask = LayerMask.GetMask("interactable");
     private float timer = float.MaxValue;
     private float cooldown = 0.5f;
 
     public FindInteractablesNear(PersonBT bt)
+    {
+        nodeName = "FindInteractablesNear";
+        personBT = bt;
+        originTransform = personBT.gameObject.transform;
+    }
+
+    public override void CloneInit(PersonBT bt)
     {
         nodeName = "FindInteractablesNear";
         personBT = bt;

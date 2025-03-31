@@ -35,6 +35,23 @@ public class PersonBT : BehaviourTreeWang.Tree
         interactablesNear = new List<Transform>();
     }
 
+    public override void InitClone()
+    {
+        if (IsCloned)
+        {
+            walkSpeed = 1.5f;
+            runSpeed = 3f;
+            visionRange = 10f;
+
+            nearestPlayer = null;
+            forcedAttentionToPlayer = null;
+            peopleNear = new List<Transform>();
+            interactablesNear = new List<Transform>();
+            popularTask = Tasks.None;
+            currentTask = Tasks.None;
+        }
+    }
+
     public override Node InitTree()
     {
         if(preDeterminedTree != -1)

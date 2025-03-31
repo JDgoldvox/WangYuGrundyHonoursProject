@@ -2,16 +2,19 @@ using BehaviourTreeWang;
 
 public class CheckHappiness : Node
 {
-    private PersonBT personBT;
     private Traits traits;
-
     public CheckHappiness(PersonBT bt)
     {
         nodeName = "CheckHappiness";
         personBT = bt;
         traits = personBT.transform.GetComponent<Traits>();   
     }
-
+    public override void CloneInit(PersonBT bt)
+    {
+        nodeName = "CheckHappiness";
+        personBT = bt;
+        traits = personBT.transform.GetComponent<Traits>();
+    }
     public override NODE_STATE Evaluate()
     {
         if(traits.happiness < 0.5)

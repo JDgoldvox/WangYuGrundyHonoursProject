@@ -6,12 +6,18 @@ using UnityEngine;
 
 public class FindPeopleNear : Node
 {
-    private PersonBT personBT;
     private Transform originTransform;
     private int peopleLayerMask = LayerMask.GetMask("People");
     private float timer = float.MaxValue;
     private float cooldown = 1f;
     public FindPeopleNear(PersonBT bt)
+    {
+        nodeName = "FindPeopleNear";
+        personBT = bt;
+        originTransform = personBT.gameObject.transform;
+    }
+
+    public override void CloneInit(PersonBT bt)
     {
         nodeName = "FindPeopleNear";
         personBT = bt;

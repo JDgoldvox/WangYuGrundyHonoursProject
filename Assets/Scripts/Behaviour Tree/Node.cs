@@ -19,6 +19,7 @@ namespace BehaviourTreeWang
         public List<Node> children = new List<Node>();
         private Dictionary<string, object> data = new Dictionary<string, object>();
         public string nodeName = "no name";
+        protected PersonBT personBT;
 
         public Node()
         {
@@ -31,6 +32,11 @@ namespace BehaviourTreeWang
             {
                 Attach(child);
             }
+        }
+
+        public virtual void CloneInit(PersonBT bt)
+        {
+            //Debug.Log(nodeName + "Has no clone initilizer");
         }
 
         public void Attach(Node node)

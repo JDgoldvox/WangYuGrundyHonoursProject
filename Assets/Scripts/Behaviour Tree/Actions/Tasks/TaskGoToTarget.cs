@@ -7,7 +7,6 @@ using System.Collections.Generic;
 /// </summary>
 public class TaskGoToTarget : Node
 {
-    PersonBT personBT;
     private Transform btTransform;
     private float speed;
     private float waitCounter = 0;
@@ -15,6 +14,16 @@ public class TaskGoToTarget : Node
     private Traits S_Traits;
 
     public TaskGoToTarget(PersonBT bt)
+    {
+        nodeName = "TaskGoToTarget";
+        personBT = bt;
+        btTransform = personBT.transform;
+        speed = personBT.walkSpeed;
+        animator = personBT.animator;
+        S_Traits = personBT.GetComponent<Traits>();
+    }
+
+    public override void CloneInit(PersonBT bt)
     {
         nodeName = "TaskGoToTarget";
         personBT = bt;

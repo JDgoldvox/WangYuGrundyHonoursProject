@@ -4,7 +4,6 @@ using UnityEngine.UIElements;
 
 public class TaskWalkTowardInteractable : Node
 {
-    PersonBT personBT;
     private Traits S_Traits;
 
     public TaskWalkTowardInteractable(PersonBT bt)
@@ -14,6 +13,12 @@ public class TaskWalkTowardInteractable : Node
         S_Traits = personBT.GetComponent<Traits>();
     }
 
+    public override void CloneInit(PersonBT bt)
+    {
+        nodeName = "TaskWalkTowardInteractable";
+        personBT = bt;
+        S_Traits = personBT.GetComponent<Traits>();
+    }
     public override NODE_STATE Evaluate()
     {
         if (personBT.interactablesNear[0] == null)

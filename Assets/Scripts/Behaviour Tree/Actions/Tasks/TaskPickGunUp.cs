@@ -4,7 +4,6 @@ using BehaviourTreeWang;
 public class TaskPickGunUp : Node
 {
     private Transform btTransform;
-    private PersonBT personBT;
 
     private float waitCounter = 0;
     private float maxWaitCounter = 2f;
@@ -18,6 +17,16 @@ public class TaskPickGunUp : Node
         btTransform = personBT.transform;
         animator = personBT.animator;
     }
+
+    public override void CloneInit(PersonBT bt)
+    {
+        nodeName = "TaskPickGunUp";
+        personBT = bt;
+        btTransform = personBT.transform;
+        animator = personBT.animator;
+    }
+
+
     public override NODE_STATE Evaluate()
     {
         if (personBT.interactablesNear[0] != null)  

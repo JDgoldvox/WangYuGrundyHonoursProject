@@ -1,11 +1,16 @@
 using UnityEngine;
 using BehaviourTreeWang;
+using static UnityEngine.ParticleSystem;
 
 public class CheckForceAttention : Node
 {
-    private PersonBT personBT;
-
     public CheckForceAttention(PersonBT bt)
+    {
+        nodeName = "CheckForceAttention";
+        personBT = bt;
+    }
+
+    public override void CloneInit(PersonBT bt)
     {
         nodeName = "CheckForceAttention";
         personBT = bt;

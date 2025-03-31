@@ -3,7 +3,6 @@ using BehaviourTreeWang;
 public class TaskTalk : Node
 {
     private Transform btTransform;
-    private PersonBT personBT;
 
     private float maxActionTime = 3f;
     private float actionTimer = float.MaxValue;
@@ -18,6 +17,16 @@ public class TaskTalk : Node
         animator = personBT.animator;
         S_Traits = personBT.GetComponent<Traits>();
     }
+
+    public override void CloneInit(PersonBT bt)
+    {
+        nodeName = "TaskTalk";
+        personBT = bt;
+        btTransform = personBT.transform;
+        animator = personBT.animator;
+        S_Traits = personBT.GetComponent<Traits>();
+    }
+
     public override NODE_STATE Evaluate()
     {
         if (Time.time < actionTimer)

@@ -4,12 +4,20 @@ using UnityEngine.UIElements;
 public class TaskMeditate : Node
 {
     private Transform btTransform;
-    private PersonBT personBT;
 
     private Animator animator;
     private Traits S_Traits;
 
     public TaskMeditate(PersonBT bt)
+    {
+        nodeName = "TaskMeditate";
+        personBT = bt;
+        btTransform = personBT.transform;
+        animator = personBT.animator;
+        S_Traits = personBT.GetComponent<Traits>();
+    }
+
+    public override void CloneInit(PersonBT bt)
     {
         nodeName = "TaskMeditate";
         personBT = bt;

@@ -2,10 +2,16 @@ using BehaviourTreeWang;
 
 public class CheckAnger : Node
 {
-    private PersonBT personBT;
     private Traits traits;
 
     public CheckAnger(PersonBT bt)
+    {
+        nodeName = "CheckAnger";
+        personBT = bt;
+        traits = personBT.transform.GetComponent<Traits>();
+    }
+
+    public override void CloneInit(PersonBT bt)
     {
         nodeName = "CheckAnger";
         personBT = bt;

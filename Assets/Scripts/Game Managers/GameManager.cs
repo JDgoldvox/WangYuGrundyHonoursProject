@@ -295,13 +295,32 @@ public class GameManager : MonoBehaviour
         GameObject p = SpawnPrefabAtRandomLocation(personPrefab);
 
         PersonBT script = p.GetComponent<PersonBT>();
-        //script.IsCloned = true;
+        script.IsCloned = true;
+
+        foreach (Node child in newNodes)
+        {
+            Debug.Log(child.nodeName);
+        }
 
         //create a selector node to set as root
+
         Node newRoot = new Selector();
         foreach(Node n in newNodes)
         {
             newRoot.Attach(n);
+            newRoot.CloneInit(script);
+
+            //set all children to have the same personBT
+            n.CloneInit(script);
+
+            //set all children's child to same personBT
+            if(n.children.Count > 0)
+            {
+                foreach (Node child in n.children)
+                {
+                    child.CloneInit(script);
+                }
+            }
         }
 
         script.root = newRoot;

@@ -7,13 +7,22 @@ using BehaviourTreeWang;
 /// </summary>
 public class TaskGoToNearestPerson : Node
 {
-    PersonBT personBT;
     private Transform btTransform;
     private float speed;
     private Animator animator;
     private Traits S_Traits;
 
     public TaskGoToNearestPerson(PersonBT bt)
+    {
+        nodeName = "TaskGoToNearestPerson";
+        personBT = bt;
+        btTransform = personBT.transform;
+        speed = personBT.walkSpeed;
+        animator = personBT.animator;
+        S_Traits = personBT.GetComponent<Traits>();
+    }
+
+    public override void CloneInit(PersonBT bt)
     {
         nodeName = "TaskGoToNearestPerson";
         personBT = bt;

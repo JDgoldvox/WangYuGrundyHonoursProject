@@ -1,10 +1,10 @@
 using UnityEngine;
 using BehaviourTreeWang;
 using System.Collections.Generic;
+using static UnityEngine.ParticleSystem;
 
 public class CheckTargetInRange : Node
 {
-    private PersonBT personBT;
     private Transform originPosition;
     private int peopleLayerMask = LayerMask.GetMask("People");
     private Animator animator;
@@ -12,6 +12,15 @@ public class CheckTargetInRange : Node
     float cooldown = 2;
     float timer = float.MaxValue;
     public CheckTargetInRange(PersonBT bt)
+    {
+        nodeName = "CheckTargetInRange";
+        personBT = bt;
+        originPosition = personBT.transform;
+        animator = personBT.animator;
+        visionRange = personBT.visionRange;
+    }
+
+    public override void CloneInit(PersonBT bt)
     {
         nodeName = "CheckTargetInRange";
         personBT = bt;

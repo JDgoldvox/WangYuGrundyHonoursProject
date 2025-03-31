@@ -4,7 +4,6 @@ using UnityEngine.UIElements;
 public class TaskCry : Node
 {
     private Transform btTransform;
-    private PersonBT personBT;
 
     private float waitCounter = 0;
     private float maxWaitCounter = 2f;
@@ -12,6 +11,15 @@ public class TaskCry : Node
     private Animator animator;
     private Traits S_Traits;
     public TaskCry(PersonBT bt)
+    {
+        nodeName = "TaskCry";
+        personBT = bt;
+        btTransform = personBT.transform;
+        animator = personBT.animator;
+        S_Traits = personBT.GetComponent<Traits>();
+    }
+
+    public override void CloneInit(PersonBT bt)
     {
         nodeName = "TaskCry";
         personBT = bt;
