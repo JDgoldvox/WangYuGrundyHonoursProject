@@ -297,11 +297,6 @@ public class GameManager : MonoBehaviour
         PersonBT script = p.GetComponent<PersonBT>();
         script.IsCloned = true;
 
-        foreach (Node child in newNodes)
-        {
-            Debug.Log(child.nodeName);
-        }
-
         //create a selector node to set as root
 
         Node newRoot = new Selector();

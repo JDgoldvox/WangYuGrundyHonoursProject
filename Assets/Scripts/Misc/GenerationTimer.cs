@@ -1,10 +1,12 @@
 using Unity.VisualScripting;
 using UnityEngine;
+using TMPro;
 
 public class GenerationTimer : MonoBehaviour
 {
     [SerializeField] private bool enableConstantGenerationTime;
     [SerializeField] private float secondsPerGeneration;
+    [SerializeField] private TMP_InputField timeInput;
 
     private float timer;
     private GameManager gameManager;
@@ -42,5 +44,22 @@ public class GenerationTimer : MonoBehaviour
         //Create new generation
         calculations.UpdateAverageScore();
         gameManager.NextGeneration();
+    }
+
+    public void EnableAutoGenerationTimer()
+    {
+        enableConstantGenerationTime = !enableConstantGenerationTime;
+    }
+
+    public void ChangeInterval()
+    {
+        if (float.TryParse(timeInput.text.ToString(), out float number))
+        {
+            secondsPerGeneration = number;
+        }
+        else
+        {
+            Debug.Log("Couldn't parse input");
+        }
     }
 }
