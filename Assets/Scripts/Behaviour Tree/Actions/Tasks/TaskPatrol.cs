@@ -24,6 +24,8 @@ public class TaskPatrol : Node
         speed = speedIn;
     }
 
+   
+
     public override NODE_STATE Evaluate()
     {
         Debug.Log("Patrolling");

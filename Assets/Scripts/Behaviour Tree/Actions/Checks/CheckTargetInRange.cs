@@ -20,6 +20,11 @@ public class CheckTargetInRange : Node
         visionRange = personBT.visionRange;
     }
 
+    public override Node Clone()
+    {
+        return new CheckTargetInRange(personBT);
+    }
+
     public override void CloneInit(PersonBT bt)
     {
         nodeName = "CheckTargetInRange";

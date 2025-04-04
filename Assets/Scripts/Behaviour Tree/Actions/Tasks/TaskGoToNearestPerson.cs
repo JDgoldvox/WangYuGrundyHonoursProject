@@ -22,6 +22,10 @@ public class TaskGoToNearestPerson : Node
         S_Traits = personBT.GetComponent<Traits>();
     }
 
+    public override Node Clone()
+    {
+        return new TaskGoToNearestPerson(personBT);
+    }
     public override void CloneInit(PersonBT bt)
     {
         nodeName = "TaskGoToNearestPerson";

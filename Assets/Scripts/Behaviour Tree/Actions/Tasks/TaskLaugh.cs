@@ -20,6 +20,11 @@ public class TaskLaugh : Node
         S_Traits = personBT.GetComponent<Traits>();
     }
 
+    public override Node Clone()
+    {
+        return new TaskLaugh(personBT);
+    }
+
     public override void CloneInit(PersonBT bt)
     {
         nodeName = "TaskLaugh";

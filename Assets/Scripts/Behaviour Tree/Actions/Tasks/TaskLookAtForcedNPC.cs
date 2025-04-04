@@ -21,6 +21,11 @@ public class TaskLookAtForcedNPC : Node
         btTransform = personBT.transform;
     }
 
+    public override Node Clone()
+    {
+        return new TaskLookAtForcedNPC(personBT);
+    }
+
     public override NODE_STATE Evaluate()
     {
         if(timer < Time.time)

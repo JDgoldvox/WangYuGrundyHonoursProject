@@ -14,6 +14,11 @@ namespace BehaviourTreeWang
         public Selector() : base() { }
         public Selector(List<Node> children) : base(children) { }
 
+        public override Node Clone()
+        {
+            return new Selector();
+        }
+
         public override NODE_STATE Evaluate()
         { 
             foreach (Node node in children)

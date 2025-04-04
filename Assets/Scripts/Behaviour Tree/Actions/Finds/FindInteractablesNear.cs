@@ -16,6 +16,11 @@ public class FindInteractablesNear : Node
         originTransform = personBT.gameObject.transform;
     }
 
+    public override Node Clone()
+    {
+        return new FindInteractablesNear(personBT);
+    }
+
     public override void CloneInit(PersonBT bt)
     {
         nodeName = "FindInteractablesNear";
@@ -25,6 +30,11 @@ public class FindInteractablesNear : Node
 
     public override NODE_STATE Evaluate()
     {
+        if(originTransform == null)
+        {
+            return NODE_STATE.FAILURE;
+        }
+
 
         Collider[] colliders = Physics.OverlapSphere(
             originTransform.position,

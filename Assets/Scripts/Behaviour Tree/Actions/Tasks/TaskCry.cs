@@ -19,6 +19,11 @@ public class TaskCry : Node
         S_Traits = personBT.GetComponent<Traits>();
     }
 
+    public override Node Clone()
+    {
+        return new TaskCry(personBT);
+    }
+
     public override void CloneInit(PersonBT bt)
     {
         nodeName = "TaskCry";

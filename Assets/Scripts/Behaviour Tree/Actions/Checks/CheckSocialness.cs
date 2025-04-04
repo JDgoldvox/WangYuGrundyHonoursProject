@@ -12,6 +12,10 @@ public class CheckSocialness : Node
         traits = personBT.transform.GetComponent<Traits>();
     }
 
+    public override Node Clone()
+    {
+        return new CheckSocialness(personBT);
+    }
     public override void CloneInit(PersonBT bt)
     {
         nodeName = "CheckSocialness";

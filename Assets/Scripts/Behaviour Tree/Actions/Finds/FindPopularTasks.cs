@@ -11,6 +11,11 @@ public class FindPopularTasks : Node
         personBT = bt;
     }
 
+    public override Node Clone()
+    {
+        return new FindPopularTasks(personBT);
+    }
+
     public override void CloneInit(PersonBT bt)
     {
         nodeName = "FindPopularTasks";

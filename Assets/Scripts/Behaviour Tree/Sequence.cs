@@ -16,6 +16,11 @@ namespace BehaviourTreeWang
             nodeName = nameOfSequence;
         }
 
+        public override Node Clone()
+        {
+            return new Sequence();
+        }
+
         public override NODE_STATE Evaluate() 
         {
             bool isAnyChildRunning = false;

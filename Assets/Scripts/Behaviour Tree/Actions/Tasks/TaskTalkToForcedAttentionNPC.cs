@@ -16,6 +16,10 @@ public class TaskTalkToForcedAttentionNPC : Node
         S_Traits = personBT.GetComponent<Traits>();
     }
 
+    public override Node Clone()
+    {
+        return new TaskTalkToForcedAttentionNPC(personBT);
+    }
     public override void CloneInit(PersonBT bt)
     {
         nodeName = "TaskTalkToForcedAttentionNPC";

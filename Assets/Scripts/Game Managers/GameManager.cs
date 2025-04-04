@@ -25,7 +25,6 @@ public class GameManager : MonoBehaviour
     public TMP_Text fitnessThresholdToCullText;
 
 
-    [Range(0f, 1f)][SerializeField] private float probabilityOfFilter;
     [Range(0f, 1f)][SerializeField] private float probabilityOfCrossOver;
     private int populationSize = 1;
 
@@ -51,7 +50,6 @@ public class GameManager : MonoBehaviour
             for(int i = 0; i < spawnAmount; i++)
             {
                 SpawnPrefabAtRandomLocation(personPrefab);
-
                 Randomise();
             }
         }
@@ -61,7 +59,6 @@ public class GameManager : MonoBehaviour
     {
         populationText.text = "population: " + (int)populationSlider.value;
         populationSize = (int)populationSlider.value;
-
 
         //update avr fitness
         float fitness = 0;
@@ -123,6 +120,18 @@ public class GameManager : MonoBehaviour
 
         //Prune List or multiply depending on required population size
         PruneOrMultiplyList();
+
+        //reset all traits
+        ResetAllTraits();
+    }
+
+    private void ResetAllTraits()
+    {
+        foreach (Transform person in peopleList)
+        {
+            Traits traits = person.GetComponent<Traits>();
+            traits.ResetStats();
+        }
     }
 
     private void SetPeopleList()
@@ -149,12 +158,6 @@ public class GameManager : MonoBehaviour
 
         foreach (Transform person in peopleList)
         {
-            ////Randomise threshold for a filter
-            //if(Random.Range(0, 1) > probabilityOfFilter)
-            //{
-            //    continue;
-            //}
-
             Traits traits = person.GetComponent<Traits>();
 
             if(traits.ReturnFitnessFunction() < fitnessThresholdToCull.value)
@@ -247,6 +250,13 @@ public class GameManager : MonoBehaviour
             {
                 SpawnPrefabAtRandomLocation(v);
             }
+
+
+            //for (int i = 0; i < populationToMake; i++)
+            //{
+            //    Instantiate(personPrefab, PeopleParent);
+            //}
+
         }
     }
     
@@ -262,7 +272,7 @@ public class GameManager : MonoBehaviour
         List<Node> nodesA = new List<Node>(personA.root.children);
 
         PersonBT personB = peopleList[indexB].GetComponent<PersonBT>();
-        List<Node> nodesB = new List<Node>(personA.root.children);
+        List<Node> nodesB = new List<Node>(personB.root.children);
 
         int halfNodesA = nodesA.Count / 2;
         int halfNodesB = nodesB.Count / 2;
@@ -272,19 +282,15 @@ public class GameManager : MonoBehaviour
         //add nodes A
         for (int i = 0; i < halfNodesA; i++)
         {
-            Node newNodeA = new Node();
-            newNodeA.children = new List<Node>(nodesA[i].children);
-            newNodeA.nodeName = nodesA[i].nodeName;
-            newNodes.Add(newNodeA);   
+            Node cloned = DeepCloneNode(nodesA[i], null); 
+            newNodes.Add(cloned);
         }
 
         //add nodes B
         for (int i = 0; i < halfNodesB; i++)
         {
-            Node newNodeB = new Node();
-            newNodeB.children = new List<Node>(nodesB[i].children);
-            newNodeB.nodeName = nodesB[i].nodeName;
-            newNodes.Add(newNodeB);
+            Node cloned = DeepCloneNode(nodesB[i], null); 
+            newNodes.Add(cloned);
         }
 
         return newNodes;
@@ -292,33 +298,24 @@ public class GameManager : MonoBehaviour
 
     private void CreatePersonWithChildren(List<Node> newNodes)
     {
-        GameObject p = SpawnPrefabAtRandomLocation(personPrefab);
+        GameObject newPerson = SpawnPrefabAtRandomLocation(personPrefab);
 
-        PersonBT script = p.GetComponent<PersonBT>();
-        script.IsCloned = true;
+        PersonBT newPersonBT = newPerson.GetComponent<PersonBT>();
+        newPersonBT.IsCloned = true;
 
         //create a selector node to set as root
-
         Node newRoot = new Selector();
-        foreach(Node n in newNodes)
+        newRoot.CloneInit(newPersonBT);
+
+        //set root
+        newPersonBT.root = newRoot;
+
+        //Update them
+        foreach (Node n in newNodes)
         {
+            UpdateCloneInitRecursively(n, newPersonBT); 
             newRoot.Attach(n);
-            newRoot.CloneInit(script);
-
-            //set all children to have the same personBT
-            n.CloneInit(script);
-
-            //set all children's child to same personBT
-            if(n.children.Count > 0)
-            {
-                foreach (Node child in n.children)
-                {
-                    child.CloneInit(script);
-                }
-            }
         }
-
-        script.root = newRoot;
     }
 
     private GameObject SpawnPrefabAtRandomLocation(GameObject prefab)
@@ -330,6 +327,38 @@ public class GameManager : MonoBehaviour
         GameObject p = Instantiate(prefab, pos, Quaternion.identity, PeopleParent);
         p.GetComponent<Traits>().ResetStats();
 
+        //PersonBT script = p.GetComponent<PersonBT>();
+        //foreach (Node n in script.root.children)
+        //{
+        //    UpdateCloneInitRecursively(n, script);
+        //}
+
         return p;
+    }
+
+    private Node DeepCloneNode(Node original, PersonBT bt)
+    {
+        if (original == null) return null;
+
+        Node clone = original.Clone();
+        clone.nodeName = original.nodeName;
+
+        clone.children = new List<Node>();
+        foreach (Node child in original.children)
+        {
+            Node clonedChild = DeepCloneNode(child, bt); 
+            clone.Attach(clonedChild);
+        }
+
+        return clone;
+    }
+
+    private void UpdateCloneInitRecursively(Node node, PersonBT bt)
+    {
+        node.CloneInit(bt);
+        foreach (Node child in node.children)
+        {
+            UpdateCloneInitRecursively(child, bt);
+        }
     }
 }

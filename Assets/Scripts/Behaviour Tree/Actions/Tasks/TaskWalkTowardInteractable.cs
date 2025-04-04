@@ -13,6 +13,10 @@ public class TaskWalkTowardInteractable : Node
         S_Traits = personBT.GetComponent<Traits>();
     }
 
+    public override Node Clone()
+    {
+        return new TaskWalkTowardInteractable(personBT);
+    }
     public override void CloneInit(PersonBT bt)
     {
         nodeName = "TaskWalkTowardInteractable";

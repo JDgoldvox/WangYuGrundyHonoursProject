@@ -9,6 +9,11 @@ public class CheckHappiness : Node
         personBT = bt;
         traits = personBT.transform.GetComponent<Traits>();   
     }
+
+    public override Node Clone()
+    {
+        return new CheckHappiness(personBT);
+    }
     public override void CloneInit(PersonBT bt)
     {
         nodeName = "CheckHappiness";

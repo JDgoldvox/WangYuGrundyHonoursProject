@@ -17,6 +17,11 @@ public class FindPeopleNear : Node
         originTransform = personBT.gameObject.transform;
     }
 
+    public override Node Clone()
+    {
+        return new FindPeopleNear(personBT);
+    }
+
     public override void CloneInit(PersonBT bt)
     {
         nodeName = "FindPeopleNear";

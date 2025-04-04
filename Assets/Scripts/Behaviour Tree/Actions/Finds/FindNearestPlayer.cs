@@ -16,6 +16,11 @@ public class FindNearestPlayer : Node
         originTransform = personBT.gameObject.transform;
     }
 
+    public override Node Clone()
+    {
+        return new FindNearestPlayer(personBT);
+    }
+
     public override void CloneInit(PersonBT bt)
     {
         nodeName = "FindNearestPlayer";

@@ -18,6 +18,10 @@ public class TaskPickGunUp : Node
         animator = personBT.animator;
     }
 
+    public override Node Clone()
+    {
+        return new TaskPickGunUp(personBT);
+    }
     public override void CloneInit(PersonBT bt)
     {
         nodeName = "TaskPickGunUp";

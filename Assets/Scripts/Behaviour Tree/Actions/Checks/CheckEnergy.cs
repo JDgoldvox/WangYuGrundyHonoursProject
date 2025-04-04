@@ -14,6 +14,11 @@ public class CheckEnergy : Node
         traits = personBT.transform.GetComponent<Traits>();
     }
 
+    public override Node Clone()
+    {
+        return new CheckEnergy(personBT);
+    }
+
     public override void CloneInit(PersonBT bt)
     {
         nodeName = "CheckEnergy";

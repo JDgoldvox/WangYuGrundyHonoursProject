@@ -18,6 +18,10 @@ public class TaskTalk : Node
         S_Traits = personBT.GetComponent<Traits>();
     }
 
+    public override Node Clone()
+    {
+        return new TaskTalk(personBT);
+    }
     public override void CloneInit(PersonBT bt)
     {
         nodeName = "TaskTalk";

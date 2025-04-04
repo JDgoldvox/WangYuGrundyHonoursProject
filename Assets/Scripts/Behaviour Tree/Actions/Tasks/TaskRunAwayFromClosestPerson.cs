@@ -30,6 +30,11 @@ public class TaskRunAwayFromClosestPerson : Node
         animator = personBT.animator;
         S_Traits = personBT.GetComponent<Traits>();
     }
+
+    public override Node Clone()
+    {
+        return new TaskRunAwayFromClosestPerson(personBT);
+    }
     public override NODE_STATE Evaluate()
     {
         if (personBT.nearestPlayer == null)

@@ -10,6 +10,11 @@ public class CheckForceAttention : Node
         personBT = bt;
     }
 
+    public override Node Clone()
+    {
+        return new CheckForceAttention(personBT);
+    }
+
     public override void CloneInit(PersonBT bt)
     {
         nodeName = "CheckForceAttention";

@@ -29,6 +29,11 @@ public class TaskRandomWalk : Node
         S_Traits = personBT.GetComponent<Traits>();
     }
 
+    public override Node Clone()
+    {
+        return new TaskRandomWalk(personBT);
+    }
+
     public override void CloneInit(PersonBT bt)
     {
         nodeName = "TaskRandomWalk";

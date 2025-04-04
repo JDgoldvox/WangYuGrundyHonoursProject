@@ -4,6 +4,11 @@ public class CheckAnger : Node
 {
     private Traits traits;
 
+    public override Node Clone()
+    {
+        return new CheckAnger(personBT);
+    }
+
     public CheckAnger(PersonBT bt)
     {
         nodeName = "CheckAnger";

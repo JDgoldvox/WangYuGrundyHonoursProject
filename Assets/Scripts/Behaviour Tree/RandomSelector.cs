@@ -17,6 +17,11 @@ namespace BehaviourTreeWang
         public RandomSelector() : base() { }
         public RandomSelector(List<Node> children) : base(children) { }
 
+        public override Node Clone()
+        {
+            return new RandomSelector();
+        }
+
         public override NODE_STATE Evaluate()
         {
             //Fisher–Yates shuffle

@@ -36,7 +36,13 @@ namespace BehaviourTreeWang
 
         public virtual void CloneInit(PersonBT bt)
         {
+            personBT = bt;
             //Debug.Log(nodeName + "Has no clone initilizer");
+        }
+
+        public virtual Node Clone()
+        {
+            return null;
         }
 
         public void Attach(Node node)

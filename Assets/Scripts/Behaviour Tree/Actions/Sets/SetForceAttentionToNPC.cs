@@ -8,6 +8,10 @@ public class SetForceAttentionToNPC : Node
         personBT = bt;
     }
 
+    public override Node Clone()
+    {
+        return new SetForceAttentionToNPC(personBT);
+    }
     public override void CloneInit(PersonBT bt)
     {
         personBT = bt;
