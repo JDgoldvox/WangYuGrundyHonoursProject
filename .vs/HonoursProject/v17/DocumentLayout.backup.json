@@ -1,0 +1,53 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\voxca\\Documents\\UniWork\\HonoursProject\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{8723751B-C6EF-86D4-60C8-ADFE941D4A23}|Assembly-CSharp.csproj|c:\\users\\voxca\\documents\\uniwork\\honoursproject\\assets\\scripts\\game managers\\gamemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8723751B-C6EF-86D4-60C8-ADFE941D4A23}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\game managers\\gamemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8723751B-C6EF-86D4-60C8-ADFE941D4A23}|Assembly-CSharp.csproj|C:\\Users\\voxca\\Documents\\UniWork\\HonoursProject\\assets\\scripts\\controls\\actions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8723751B-C6EF-86D4-60C8-ADFE941D4A23}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\controls\\actions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Actions.cs",
+              "DocumentMoniker": "C:\\Users\\voxca\\Documents\\UniWork\\HonoursProject\\Assets\\Scripts\\Controls\\Actions.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Controls\\Actions.cs",
+              "ToolTip": "C:\\Users\\voxca\\Documents\\UniWork\\HonoursProject\\Assets\\Scripts\\Controls\\Actions.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Controls\\Actions.cs",
+              "ViewState": "AgIAAFoAAAAAAAAAAAAAAG4AAABdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-04T02:36:56.885Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "GameManager.cs",
+              "DocumentMoniker": "C:\\Users\\voxca\\Documents\\UniWork\\HonoursProject\\Assets\\Scripts\\Game Managers\\GameManager.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Game Managers\\GameManager.cs",
+              "ToolTip": "C:\\Users\\voxca\\Documents\\UniWork\\HonoursProject\\Assets\\Scripts\\Game Managers\\GameManager.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Game Managers\\GameManager.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAGMAAAAlAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-04T01:47:15.814Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
