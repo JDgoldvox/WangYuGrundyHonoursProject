@@ -119,6 +119,7 @@ public class GameManager : MonoBehaviour
         //Mutations
 
         //Prune List or multiply depending on required population size
+        SetPeopleList();
         PruneOrMultiplyList();
 
         //reset all traits
@@ -215,21 +216,15 @@ public class GameManager : MonoBehaviour
         //prune
         if(PeopleParent.childCount > populationSize) 
         {
-            List<GameObject> removeList = new List<GameObject>();
-
             //remove children randomly
             int populationToRemove = PeopleParent.childCount - populationSize;
 
-            for (int i = 0; i < populationToRemove; i++)
-            {
-                int randomChildNum = Random.Range(0, PeopleParent.childCount);
-                removeList.Add(PeopleParent.GetChild(randomChildNum).gameObject);
-            }
+            //Sort people list by ascending order
+            peopleList.Sort((a, b) => a.transform.GetComponent<Traits>().ReturnFitnessFunction().CompareTo(b.transform.GetComponent<Traits>().ReturnFitnessFunction()));
 
-            //delete these people
-            foreach(var v in removeList)
+            for(int i = 0; i < populationToRemove; i++)
             {
-                Destroy(v);
+                Destroy(peopleList[i].gameObject);
             }
         }
         else if(PeopleParent.childCount < populationSize) //mulitiply
@@ -248,15 +243,18 @@ public class GameManager : MonoBehaviour
             //Duplicate these people
             foreach (var v in increaseList)
             {
-                SpawnPrefabAtRandomLocation(v);
+                PersonBT person = v.GetComponent<PersonBT>();
+                List<Node> personOriginalNodes = new List<Node>(person.root.children);
+                List<Node> newNodes = new List<Node>();
+
+                for (int i = 0; i < personOriginalNodes.Count; i++)
+                {
+                    Node cloned = DeepCloneNode(personOriginalNodes[i], null);
+                    newNodes.Add(cloned);
+                }
+
+                CreatePersonWithChildren(newNodes);
             }
-
-
-            //for (int i = 0; i < populationToMake; i++)
-            //{
-            //    Instantiate(personPrefab, PeopleParent);
-            //}
-
         }
     }
     
