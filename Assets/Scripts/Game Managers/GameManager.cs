@@ -21,7 +21,7 @@ public class GameManager : MonoBehaviour
     public Slider populationSlider;
     public TMP_Text populationText;
     public TMP_Text fitnessText;
-    public Slider fitnessThresholdToCull;
+    public Slider fitnessPercentageToCull;
     public TMP_Text fitnessThresholdToCullText;
 
 
@@ -71,7 +71,7 @@ public class GameManager : MonoBehaviour
         fitnessText.text = "Average Fitness: " + fitness.ToString("F2");
 
         //update cull threshold
-        fitnessThresholdToCullText.text = "fitness threshold: " + fitnessThresholdToCull.value;
+        fitnessThresholdToCullText.text = "fitness threshold: " + fitnessPercentageToCull.value;
     }
 
     /// <summary>
@@ -151,23 +151,28 @@ public class GameManager : MonoBehaviour
         List<Transform> newPeopleList = new List<Transform>();
         List<Transform> deleteList = new List<Transform>();
 
+        //Sort people list by ascending order
+        peopleList.Sort((a, b) => a.transform.GetComponent<Traits>().ReturnFitnessFunction().CompareTo(b.transform.GetComponent<Traits>().ReturnFitnessFunction()));
+
         if (peopleList.Count == 0)
         {
             Debug.LogError("List of people is empty - cannot filter");
             return;
         }
 
-        foreach (Transform person in peopleList)
-        {
-            Traits traits = person.GetComponent<Traits>();
+        //find number of people to cull depending on cull percentage
+        int peopleToCull = (int)(peopleList.Count * fitnessPercentageToCull.value);
 
-            if(traits.ReturnFitnessFunction() < fitnessThresholdToCull.value)
+        for(int i = 0; i < peopleList.Count; i++)
+        {
+            //Cull the bottom percentage of people
+            if (i < peopleToCull)
             {
-                deleteList.Add(person);
+                deleteList.Add(peopleList[i]);
             }
             else
             {
-                newPeopleList.Add(person);
+                newPeopleList.Add(peopleList[i]);
             }
         }
 
