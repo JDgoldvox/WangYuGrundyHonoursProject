@@ -71,7 +71,7 @@ public class GameManager : MonoBehaviour
         fitnessText.text = "Average Fitness: " + fitness.ToString("F2");
 
         //update cull threshold
-        fitnessThresholdToCullText.text = "fitness threshold: " + fitnessPercentageToCull.value;
+        fitnessThresholdToCullText.text = "Fitness cull Percentage: " + (fitnessPercentageToCull.value * 100).ToString("F2") + "%";
     }
 
     /// <summary>
